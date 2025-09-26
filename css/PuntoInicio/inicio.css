@@ -1,4 +1,8 @@
-/* Navbar - buscador redondeado */
+body {
+  padding-top: 50px;
+}
+
+/* Navbar */
 .custom-search input {
   border-radius: 50px;
   padding-left: 15px;
@@ -9,7 +13,6 @@
   padding: 6px 12px;
 }
 
-/* Ajustes en enlaces */
 .navbar .nav-link {
   font-weight: 500;
   transition: color 0.3s ease;
@@ -19,8 +22,13 @@
   color: #0dcaf0;
 }
 
-/* Dropdown */
 .dropdown-menu a:hover {
   background-color: #f8f9fa;
   color: #0d6efd;
+}
+
+
+/* card */
+.detalle {
+  display: none;
 }
