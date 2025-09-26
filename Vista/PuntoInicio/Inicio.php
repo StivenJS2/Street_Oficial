@@ -12,9 +12,9 @@
 <body>
 
       <!-- NAVBAR -->
-      <nav class="navbar navbar-expand-lg navbar-light px-4 fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top my-0">
 
-          <div class="container-fluid">
+          <div class="container-fluid bg-white shadow-sm fixed-top py-2">
 
             <!-- Logo -->
             <a class="navbar-brand fw-bold" href="#">
@@ -109,7 +109,7 @@
 
     <!-- Cards -->
 
-    <div class="container-fluid bg-light text-dark py-5 my-3">
+    <div class="container-fluid bg-light text-dark py-5 my-2">
     <div class="container">
 
     <h2 class="text-center mb-4">La moda la puedes inventar tú.</h2>
