@@ -14,6 +14,12 @@ switch ($opcion) {
         $controller->manejarPeticion();
         break;
 
+    case 'login':
+        require_once __DIR__ . '/Controlador/LoginController.php';
+        $controller = new SesionController();
+        $controller->manejarPeticion();
+        break;
+
     default:
         include __DIR__ . '/Vista/PuntoInicio/Inicio.php';
         break;

@@ -10,6 +10,7 @@ class ClienteController {
    
     public function manejarPeticion() {
         $mensaje = "";
+        $clientes = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $accion = $_POST["_action"] ?? "";
@@ -73,8 +74,9 @@ class ClienteController {
 
         $clientes = $this->clienteService->obtenerClientes();
 
-    
-        require __DIR__ . "/../Vista/Cliente.php";
+
+        require __DIR__ . "/../Vista/Administrador/Cliente.php";
+
     }
 }
 

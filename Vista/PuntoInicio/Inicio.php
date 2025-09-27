@@ -17,8 +17,8 @@
           <div class="container-fluid bg-white shadow-sm fixed-top py-2">
 
             <!-- Logo -->
-            <a class="navbar-brand fw-bold" href="#">
-              <i class="bi bi-bag-check-fill me-2"></i> MiTienda
+            <a class="navbar-brand fw-bold">
+              <i class="bi bi-bag-check-fill me-2"></i> ¿Todo bien?
             </a>
 
             <div class="collapse navbar-collapse justify-content-center">
@@ -109,7 +109,7 @@
 
     <!-- Cards -->
 
-    <div class="container-fluid bg-light text-dark py-5 my-2">
+    <div class="container-fluid bg-light text-dark py-5 mt-2">
     <div class="container">
 
     <h2 class="text-center mb-4">La moda la puedes inventar tú.</h2>
@@ -309,7 +309,47 @@
   </div>
 
 
+  <footer class="container-fluid bg-black text-white pt-5 pb-3">
+    <div class="container">
+      <div class="row text-center mb-4">
 
+        <h5>Síguenos en</h5>
+        <div class="d-flex justify-content-center gap-3 mt-2">
+          <a href="#" class="text-white fs-4"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white fs-4"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="text-white fs-4"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
+          <a href="#" class="text-white fs-4"><i class="bi bi-tiktok"></i></a>
+        </div>
+      </div>
+
+      <div class="row justify-content-center -start mt-4">
+        <div class="col-md-3 mb-3">
+          
+          <h6 class="fw-bold">Acerca de Street Urban</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Compra segura</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Términos y condiciones</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Formas de pago</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <h6 class="fw-bold">Información adicional</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Registro</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Contáctanos</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Política de protección de datos</a></li>
+          </ul>
+        </div>
+
+      <div class="text-center mt-4 border-top pt-3">
+        <p class="mb-1">Con fines educativos únicamente</p>
+        <small>&copy; Derechos de autor pertenecen a Koaj, Pull & Bear y Bershka</small>
+      </div>
+    </div>
+
+  </footer>
 
 
 

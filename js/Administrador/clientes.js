@@ -1,5 +1,5 @@
 
-   function mostrarSeccion(seccion) {
+function mostrarSeccion(seccion) {
     
     document.querySelectorAll('.seccion').forEach(div => div.classList.add('d-none'));
     document.getElementById('seccion-' + seccion).classList.remove('d-none');
