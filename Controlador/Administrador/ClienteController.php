@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../Modelo/ModuloCliente/ClienteService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloCliente/ClienteService.php";
 
 class ClienteController {
     private $clienteService;
@@ -74,7 +74,7 @@ class ClienteController {
         $clientes = $this->clienteService->obtenerClientes();
 
     
-        require __DIR__ . "/../Vista/Administrador/Cliente.php";
+        require __DIR__ . "/../../Vista/Administrador/Cliente.php";
     }
 }
 

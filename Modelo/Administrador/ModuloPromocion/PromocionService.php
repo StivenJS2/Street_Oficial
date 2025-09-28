@@ -1,30 +1,40 @@
 <?php
-class CategoriaService {
-    private $urlCategoria = "http://localhost:8080/categoria";
+class PromocionService {
+    private $urlPromocion = "http://localhost:8080/promocion";
 
-    // Obtener todas las categorías
-    public function obtenerCategorias() {
-        $respuesta = file_get_contents($this->urlCategoria);
-        if ($respuesta === FALSE) return [];
+    public function obtenerPromociones() {
+        $respuesta = file_get_contents($this->urlPromocion);
+        if ($respuesta === false) {
+            return [
+                "success" => false,
+                "error" => "Error al consumir el servicio de promociones en $this->urlPromocion"
+            ];
+        }
 
-        return json_decode($respuesta, true);
+        $promociones = json_decode($respuesta, true);
+        return [
+            "success" => true,
+            "data" => $promociones
+        ];
     }
 
-    // Agregar una nueva categoría
-    public function agregarCategoria($nombre) {
+    
+    public function crearPromocion($descripcion, $descuento, $fecha_inicio, $fecha_fin, $id_producto) {
         $datos = [
-            "nombre" => $nombre
+            "descripcion"   => $descripcion,
+            "descuento"     => $descuento,
+            "fecha_inicio"  => $fecha_inicio,
+            "fecha_fin"     => $fecha_fin,
+            "id_producto"   => $id_producto
         ];
 
-        $data_json = json_encode($datos);
-        $proceso = curl_init($this->urlCategoria);
-
-        curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
+        $proceso = curl_init($this->urlPromocion);
+        curl_setopt($proceso, CURLOPT_POST, true);
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, json_encode($datos));
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($proceso, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
-            "Content-Length: " . strlen($data_json)
+            "Content-Length: " . strlen(json_encode($datos))
         ]);
 
         $respuesta = curl_exec($proceso);
@@ -43,22 +53,23 @@ class CategoriaService {
         }
     }
 
-    // Actualizar una categoría
-    public function actualizarCategoria($id, $nombre) {
+    public function actualizarPromocion($id_promocion, $descripcion, $descuento, $fecha_inicio, $fecha_fin, $id_producto) {
         $datos = [
-            "nombre" => $nombre
+            "descripcion"   => $descripcion,
+            "descuento"     => $descuento,
+            "fecha_inicio"  => $fecha_inicio,
+            "fecha_fin"     => $fecha_fin,
+            "id_producto"   => $id_producto
         ];
 
-        $data_json = json_encode($datos);
-        $url = $this->urlCategoria . "/" . $id;
+        $url = $this->urlPromocion . "/" . $id_promocion;
         $proceso = curl_init($url);
-
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, json_encode($datos));
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($proceso, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
-            "Content-Length: " . strlen($data_json)
+            "Content-Length: " . strlen(json_encode($datos))
         ]);
 
         $respuesta = curl_exec($proceso);
@@ -77,9 +88,9 @@ class CategoriaService {
         }
     }
 
-    // Eliminar una categoría
-    public function eliminarCategoria($id) {
-        $url = $this->urlCategoria . "/" . $id;
+    
+    public function eliminarPromocion($id_promocion) {
+        $url = $this->urlPromocion . "/" . $id_promocion;
         $proceso = curl_init($url);
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");

@@ -41,7 +41,7 @@
         <div class="alert alert-info text-center"><?= $mensaje ?></div>
     <?php endif; ?>
 
-    <!-- Sección Ver Promociones -->
+   
     <div id="seccion-ver" class="seccion">
         <h2>Lista de Promociones</h2>
         <?php if (is_array($promociones) && count($promociones) > 0): ?>
@@ -74,7 +74,7 @@
         <?php endif; ?>
     </div>
 
-    <!-- Sección Crear Promoción -->
+   
     <div id="seccion-crear" class="seccion d-none">
         <div class="card">
             <div class="card-header bg-success text-white">Agregar Promoción</div>
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <!-- Sección Actualizar Promoción -->
+   
     <div id="seccion-actualizar" class="seccion d-none">
         <div class="card">
             <div class="card-header bg-warning text-white">Actualizar Promoción</div>
@@ -157,7 +157,7 @@
         </div>
     </div>
 
-    <!-- Sección Eliminar Promoción -->
+   
     <div id="seccion-eliminar" class="seccion d-none">
         <div class="card">
             <div class="card-header bg-danger text-white">Eliminar Promoción</div>

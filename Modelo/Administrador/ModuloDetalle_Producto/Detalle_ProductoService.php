@@ -1,41 +1,33 @@
 <?php
-class PromocionService {
-    private $urlPromocion = "http://localhost:8080/promocion";
+class DetalleProductoService {
+    private $urlDetalleProducto = "http://localhost:8080/detalle_producto";
 
-    // Obtener todas las promociones
-    public function obtenerPromociones() {
-        $respuesta = file_get_contents($this->urlPromocion);
-        if ($respuesta === false) {
-            return [
-                "success" => false,
-                "error" => "Error al consumir el servicio de promociones en $this->urlPromocion"
-            ];
-        }
+    public function obtenerDetalles() {
+        $respuesta = file_get_contents($this->urlDetalleProducto);
+        if ($respuesta === FALSE) return [];
 
-        $promociones = json_decode($respuesta, true);
-        return [
-            "success" => true,
-            "data" => $promociones
-        ];
+        return json_decode($respuesta, true);
     }
 
-    // Crear una nueva promoción
-    public function crearPromocion($descripcion, $descuento, $fecha_inicio, $fecha_fin, $id_producto) {
+    public function agregarDetalle($talla, $color, $imagen, $id_producto, $id_categoria, $precio) {
         $datos = [
-            "descripcion"   => $descripcion,
-            "descuento"     => $descuento,
-            "fecha_inicio"  => $fecha_inicio,
-            "fecha_fin"     => $fecha_fin,
-            "id_producto"   => $id_producto
+            "talla" => $talla,
+            "color" => $color,
+            "imagen" => $imagen,
+            "id_producto" => $id_producto,
+            "id_categoria" => $id_categoria,
+            "precio" => $precio
         ];
 
-        $proceso = curl_init($this->urlPromocion);
-        curl_setopt($proceso, CURLOPT_POST, true);
-        curl_setopt($proceso, CURLOPT_POSTFIELDS, json_encode($datos));
+        $data_json = json_encode($datos);
+        $proceso = curl_init($this->urlDetalleProducto);
+
+        curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($proceso, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
-            "Content-Length: " . strlen(json_encode($datos))
+            "Content-Length: " . strlen($data_json)
         ]);
 
         $respuesta = curl_exec($proceso);
@@ -54,24 +46,26 @@ class PromocionService {
         }
     }
 
-    // Actualizar una promoción existente
-    public function actualizarPromocion($id_promocion, $descripcion, $descuento, $fecha_inicio, $fecha_fin, $id_producto) {
+    public function actualizarDetalle($id, $talla, $color, $imagen, $id_producto, $id_categoria, $precio) {
         $datos = [
-            "descripcion"   => $descripcion,
-            "descuento"     => $descuento,
-            "fecha_inicio"  => $fecha_inicio,
-            "fecha_fin"     => $fecha_fin,
-            "id_producto"   => $id_producto
+            "talla" => $talla,
+            "color" => $color,
+            "imagen" => $imagen,
+            "id_producto" => $id_producto,
+            "id_categoria" => $id_categoria,
+            "precio" => $precio
         ];
 
-        $url = $this->urlPromocion . "/" . $id_promocion;
+        $data_json = json_encode($datos);
+        $url = $this->urlDetalleProducto . "/" . $id;
         $proceso = curl_init($url);
+
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($proceso, CURLOPT_POSTFIELDS, json_encode($datos));
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($proceso, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
-            "Content-Length: " . strlen(json_encode($datos))
+            "Content-Length: " . strlen($data_json)
         ]);
 
         $respuesta = curl_exec($proceso);
@@ -90,9 +84,9 @@ class PromocionService {
         }
     }
 
-    // Eliminar una promoción
-    public function eliminarPromocion($id_promocion) {
-        $url = $this->urlPromocion . "/" . $id_promocion;
+    
+    public function eliminarDetalle($id) {
+        $url = $this->urlDetalleProducto . "/" . $id;
         $proceso = curl_init($url);
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");

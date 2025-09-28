@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../Modelo/ModuloDetalle_Producto/Detalle_ProductoService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloDetalle_Producto/Detalle_ProductoService.php";
 
 class DetalleProductoController {
     private $detalleProductoService;
@@ -23,7 +23,7 @@ class DetalleProductoController {
                     $id_categoria = trim($_POST['id_categoria'] ?? '');
                     $precio = trim($_POST['precio'] ?? '');
 
-                    // Manejo de imagen
+                    
                     $imagen = null;
                     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
                         $nombreImagen = basename($_FILES['imagen']['name']);
@@ -31,7 +31,7 @@ class DetalleProductoController {
                         $rutaDestino = __DIR__ . "/../uploads/" . $nombreImagen;
 
                         if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
-                            $imagen = "uploads/" . $nombreImagen; // ruta que se guarda en BD
+                            $imagen = "uploads/" . $nombreImagen; 
                         }
                     }
 
@@ -55,7 +55,7 @@ class DetalleProductoController {
                     $id_categoria = trim($_POST['id_categoria'] ?? '');
                     $precio = trim($_POST['precio'] ?? '');
 
-                    // Manejo de imagen (puede no actualizarse)
+                  
                     $imagen = null;
                     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
                         $nombreImagen = basename($_FILES['imagen']['name']);
@@ -94,11 +94,11 @@ class DetalleProductoController {
             }
         }
 
-        // Obtener todos los detalles de producto
+       
         $detalles = $this->detalleProductoService->obtenerDetalles();
 
-        // Cargar la vista
-        require __DIR__ . "/../Vista/Administrador/Detalle_Producto.php";
+       
+        require __DIR__ . "/../../Vista/Administrador/Detalle_Producto.php";
     }
 }
 ?>

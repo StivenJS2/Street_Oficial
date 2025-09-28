@@ -12,7 +12,7 @@
 <div class="container-fluid">
   <div class="row">
     
-    <!-- Sidebar -->
+    
     <div class="col-md-3 col-lg-2 sidebar d-flex flex-column bg-dark text-white p-3 min-vh-100">
         <h4 class="text-center mb-4">Menú</h4>
 
@@ -28,13 +28,13 @@
         </div>
     </div>
 
-    <!-- Contenido -->
+   
     <div class="col-md-9 col-lg-10 contenido flex-grow-1 p-4">
         <?php if (!empty($mensaje)): ?>
             <div class="alert alert-info text-center"><?= $mensaje ?></div>
         <?php endif; ?>
 
-        <!-- Ver detalles -->
+       
         <div id="seccion-ver" class="seccion">
             <h2>Lista de Detalles de Productos</h2>
 
@@ -80,7 +80,7 @@
             <?php endif; ?>
         </div>
 
-        <!-- Crear detalle -->
+        
         <div id="seccion-crear" class="seccion d-none">
             <div class="card">
                 <div class="card-header bg-success text-white">Agregar Detalle</div>
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <!-- Actualizar detalle -->
+       
         <div id="seccion-actualizar" class="seccion d-none">
             <div class="card">
                 <div class="card-header bg-warning text-white">Actualizar Detalle</div>
@@ -174,7 +174,7 @@
             </div>
         </div>
 
-        <!-- Eliminar detalle -->
+        
         <div id="seccion-eliminar" class="seccion d-none">
             <div class="card">
                 <div class="card-header bg-danger text-white">Eliminar Detalle</div>
@@ -192,9 +192,9 @@
                 </div>
             </div>
         </div>
-    </div> <!-- cierre contenido -->
-  </div> <!-- cierre row -->
-</div> <!-- cierre container -->
+    </div> 
+  </div> 
+</div> 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../Modelo/ModuloCategoria/CategoriaService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloCategoria/CategoriaService.php";
 
 class CategoriaController {
     private $categoriaService;
@@ -58,9 +58,9 @@ class CategoriaController {
             }
         }
 
-        // Obtener todas las categorías para mostrar en la vista
+       
         $categorias = $this->categoriaService->obtenerCategorias();
 
-        require __DIR__ . "/../Vista/Administrador/Categoria.php";
+        require __DIR__ . "/../../Vista/Administrador/Categoria.php";
     }
 }

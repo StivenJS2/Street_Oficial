@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../Modelo/ModuloPedido/PedidoService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloPedido/PedidoService.php";
 
 class PedidoController {
     private $pedidoService;
@@ -70,6 +70,6 @@ class PedidoController {
        $resultado = $this->pedidoService->obtenerPedidos();
         $pedidos = $resultado["success"] ? $resultado["data"] : [];
 
-        require __DIR__ . "/../Vista/Administrador/pedido.php";
+        require __DIR__ . "/../../Vista/Administrador/pedido.php";
     }
 }

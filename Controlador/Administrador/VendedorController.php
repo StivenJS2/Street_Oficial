@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../Modelo/ModuloVendedor/VendedorService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloVendedor/VendedorService.php";
 
 class VendedorController {
     private $vendedorService;
@@ -81,7 +81,7 @@ class VendedorController {
 
         $vendedores = $this->vendedorService->obtenerVendedores();
 
-       require __DIR__ . '/../Vista/Administrador/Vendedor.php';
+       require __DIR__ . '/../../Vista/Administrador/Vendedor.php';
 
     }
 }
