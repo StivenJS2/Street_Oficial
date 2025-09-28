@@ -1,47 +1,36 @@
 <?php
-require_once __DIR__ . "/../Modelo/ModuloLogin/LoginService.php";
+require_once __DIR__ . "/../Modelo/SesionService.php";
 
-class LoginController {
+class SesionController {
     private $loginService;
 
     public function __construct() {
-        $this->loginService = new LoginService();
+        $this->loginService = new SesionService();
     }
 
     public function manejarPeticion() {
-        session_start();
-        $mensaje = "";
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $correo = trim($_POST['correo'] ?? '');
-            $password = trim($_POST['password'] ?? '');
+            $accion = $_POST["_action"] ?? "";
 
-            if (!empty($correo) && !empty($password)) {
-                $usuario = $this->loginService->validarUsuario($correo, $password);
+            if ($accion === "login") {
+                $correo = $_POST["correo"] ?? "";
+                $contrasena = $_POST["contrasena"] ?? "";
 
-                if ($usuario) {
-                    // Guardar sesión
-                    $_SESSION['usuario_id'] = $usuario['id'];
-                    $_SESSION['correo'] = $usuario['correo'];
-                    $_SESSION['rol'] = $usuario['rol'];
+                $rol = $this->loginService->validarUsuario($correo, $contrasena);
 
-                    // Redirigir según rol
-                    if ($usuario['rol'] === 'cliente') {
-                        header("Location: Vista/PuntoInicio/Inicio.php");
-                        exit();
-                    } elseif ($usuario['rol'] === 'vendedor') {
-                        header("Location: Vista/Administrador/PanelAdmin.php");
-                        exit();
-                    }
+                if ($rol === "cliente") {
+                    header("Location: ../Vista/pagina_principal.php");
+                    exit();
+                } elseif ($rol === "administrador") {
+                    header("Location: ../Vista/pagina_admin.php");
+                    exit();
                 } else {
-                    $mensaje = "Correo o contraseña incorrectos.";
+                    echo "<script>alert('Correo o contraseña incorrectos'); window.location='../Vista/login.php';</script>";
                 }
-            } else {
-                $mensaje = "Por favor ingresa todos los campos.";
             }
         }
-
-        include __DIR__ . "/../Vista/Login/Login.php";
     }
 }
-?>
+
+$controller = new SesionController();
+$controller->manejarPeticion();
