@@ -1,0 +1,167 @@
+<?php
+$opcion = $_GET['opcion'] ?? '';
+
+if ($opcion === 'cliente') {
+    require_once __DIR__ . '/../../Controlador/ClienteController.php';
+    $controller = new ClienteController();
+    $controller->manejarPeticion();
+} 
+
+elseif ($opcion === 'vendedor') {
+    require_once __DIR__ . '/../../Controlador/VendedorController.php';
+    $controller = new VendedorController();
+    $controller->manejarPeticion();
+} 
+
+elseif ($opcion === 'pedido') {
+    require_once __DIR__ . '/../../Controlador/PedidoController.php';
+    $controller = new PedidoController();
+    $controller->manejarPeticion();
+} 
+
+elseif ($opcion === 'producto') {
+    require_once __DIR__ . '/../../Controlador/ProductoController.php';
+    $controller = new ProductoController();
+    $controller->manejarPeticion();
+} 
+
+elseif ($opcion === 'detalle_producto') {
+    require_once __DIR__ . '/../../Controlador/Detalle_ProductoController.php';
+    $controller = new DetalleProductoController();
+    $controller->manejarPeticion();
+} 
+
+elseif ($opcion === 'categoria') {
+    require_once __DIR__ . '/../../Controlador/CategoriaController.php';
+    $controller = new CategoriaController();
+    $controller->manejarPeticion();
+} 
+
+
+elseif ($opcion === 'promocion') {
+    require_once __DIR__ . '/../../Controlador/PromocionController.php';
+    $controller = new PromocionController();
+    $controller->manejarPeticion();
+}
+
+elseif ($opcion === 'valoracion') {
+    require_once __DIR__ . '/../../Controlador/ValoracionController.php';
+    $controller = new ValoracionController();
+    $controller->manejarPeticion();
+} 
+else {
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <title>Area de Administracion</title>
+    </head>
+    <body class="bg-dark">
+
+        <div class="container text-center mt-5">
+
+            <h2 class="mb-4 text-white">Bienvenido Al Area Administrativa</h2>
+            <p class="mb-5 text-white">Selecciona una opción:</p>
+
+            <div class="row g-4 justify-content-center my-5">
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 ">
+                        <div class="card-body">
+                            <h5 class="card-title">Cliente</h5>
+                            <p class="card-text">Gestiona los clientes registrados.</p>
+                            <a href="?opcion=cliente" class="btn btn-primary">Ir a Cliente</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Vendedor</h5>
+                            <p class="card-text">Administra la información de los vendedores.</p>
+                            <a href="?opcion=vendedor" class="btn btn-success">Ir a Vendedor</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Pedido</h5>
+                            <p class="card-text">Revisa y gestiona los pedidos activos.</p>
+                            <a href="?opcion=pedido" class="btn btn-warning">Ir a Pedido</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto</h5>
+                            <p class="card-text">Gestiona los productos de la tienda.</p>
+                            <a href="?opcion=producto" class="btn btn-danger">Ir a Producto</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Detalle Producto</h5>
+                            <p class="card-text">Administra las variaciones de producto (talla, color, precio, imagen).</p>
+                            <a href="?opcion=detalle_producto" class="btn btn-info">Ir a Detalle Producto</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Categoría -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Categoría</h5>
+                            <p class="card-text">Gestiona las categorías de productos.</p>
+                            <a href="?opcion=categoria" class="btn btn-secondary">Ir a Categoría</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Promoción -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Promoción</h5>
+                            <p class="card-text">Gestiona las promociones de productos.</p>
+                            <a href="?opcion=promocion" class="btn btn-dark">Ir a Promoción</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Valoración -->
+                <div class="col-md-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Valoración</h5>
+                            <p class="card-text">Gestiona las valoraciones de los clientes.</p>
+                            <a href="?opcion=valoracion" class="btn btn-danger">Ir a Valoración</a>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+
+        </div>
+
+    </body>
+    </html>
+<?php
+}
+
+
+

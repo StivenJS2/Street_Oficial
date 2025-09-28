@@ -5,31 +5,39 @@
     <title>Gestión de Vendedores</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/vendedores.css"> 
-    <script src="js/vendedores.js"></script>
+    <link rel="stylesheet" href="../../css/Administrador/vendedores.css"> 
+<script src="../../js/Administrador/vendedores.js"></script>
+
 </head>
 <body>
 
-<div class="sidebar d-flex flex-column bg-dark text-white p-3">
-    <h4 class="text-center mb-4">Menú</h4>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    
+    <!-- Sidebar -->
+    <div class="col-md-3 col-lg-2 sidebar d-flex flex-column bg-dark text-white p-3 min-vh-100">
+        <h4 class="text-center mb-4">Menú</h4>
 
-    <div class="d-grid gap-3 flex-grow-1">
-        <button class="btn btn-primary" onclick="mostrarSeccion('ver')">Vendedores</button>
-        <button class="btn btn-success" onclick="mostrarSeccion('crear')">Agregar</button>
-        <button class="btn btn-warning text-white" onclick="mostrarSeccion('actualizar')">Actualizar</button>
-        <button class="btn btn-danger" onclick="mostrarSeccion('eliminar')">Eliminar</button>
+        <div class="d-grid gap-3 flex-grow-1">
+            <button class="btn btn-primary" onclick="mostrarSeccion('ver')">Vendedores</button>
+            <button class="btn btn-success" onclick="mostrarSeccion('crear')">Agregar</button>
+            <button class="btn btn-warning text-white" onclick="mostrarSeccion('actualizar')">Actualizar</button>
+            <button class="btn btn-danger" onclick="mostrarSeccion('eliminar')">Eliminar</button>
 
-        <div class="mt-auto">
-            <a href="index.php" class="btn btn-secondary w-100">Volver al Menú</a>
+            <div class="mt-auto">
+                <a href="index.php" class="btn btn-secondary w-100">Volver al Menú</a>
+            </div>
         </div>
     </div>
-</div>
 
+    <!-- Contenido -->
+    <div class="col-md-9 col-lg-10 contenido flex-grow-1 p-4">
+        <?php if (!empty($mensaje)): ?>
+            <div class="alert alert-info text-center"><?= $mensaje ?></div>
+        <?php endif; ?>
 
-<div class="contenido flex-grow-1 p-4">
-    <?php if (!empty($mensaje)): ?>
-        <div class="alert alert-info text-center"><?= $mensaje ?></div>
-    <?php endif; ?>
+      
 
     <!-- GET -->
     <div id="seccion-ver" class="seccion">
