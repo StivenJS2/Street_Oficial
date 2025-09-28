@@ -5,7 +5,8 @@
     <title>Gestión de Clientes</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/Administrador/clientes.css"> 
+    <link rel="stylesheet" href="../../css/Administrador/clientes.css"> 
+    <script src="../../js/Administrador/clientes.js"></script>
 </head>
 <body>
 
@@ -14,25 +15,25 @@
 
     <div class="d-grid gap-3 flex-grow-1">
       <button class="btn btn-primary text-white" onclick="mostrarSeccion('ver')">
-            <img src="/img/Administrador/ver-usuario.png" alt="ver" style="width:27px; height:27px; margin-right:5px;">
+            <img src="../../img/ver-usuario.png" alt="ver" style="width:27px; height:27px; margin-right:5px;">
                 Ver Clientes
     </button>
 
   <button class="btn btn-success text-white" onclick="mostrarSeccion('crear')">
-            <img src="/img/Administrador/agregar-usuario.png" alt="crear" style="width:20px; height:20px; margin-right:5px;">
+            <img src="../../img/agregar-usuario.png" alt="crear" style="width:20px; height:20px; margin-right:5px;">
                 Agregar Cliente
     </button>
 
 
     <button class="btn btn-warning text-black " onclick="mostrarSeccion('actualizar')">
-            <img src="/img/Administrador/icono_actualizar.png" alt="Actualizar" style="width:25px; height:25px; margin-right:4px;">
+            <img src="../../img/icono_actualizar.png" alt="Actualizar" style="width:25px; height:25px; margin-right:4px;">
                    Actualizar Cliente 
     </button>
 
 
 
     <button class="btn btn-danger text-black " onclick="mostrarSeccion('eliminar')">
-            <img src="/img/Administrador/borrar.gif" alt="eliminar" style="width:25px; height:25px; margin-right:4px;">
+            <img src="../../img/borrar.gif" alt="eliminar" style="width:25px; height:25px; margin-right:4px;">
                    Eliminar Cliente 
     </button>
 
@@ -40,7 +41,7 @@
 
         <div class="mt-auto">
         <a href="index.php" class="btn btn-secondary w-100"> 
-        <img src="/img/Administrador/casa.png" alt="Volver" style="width:32px; height:32px; margin-bottom:6px;">
+        <img src="../../img/casa.png" alt="Volver" style="width:32px; height:32px; margin-bottom:6px;">
         Volver al Menú</a>
             </div>
     </div>

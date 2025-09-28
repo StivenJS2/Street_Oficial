@@ -67,8 +67,9 @@ class PedidoController {
             }
         }
 
-        $pedidos = $this->pedidoService->obtenerPedidos();
+       $resultado = $this->pedidoService->obtenerPedidos();
+        $pedidos = $resultado["success"] ? $resultado["data"] : [];
 
-        require __DIR__ . "/../Vista/Pedido.php";
+        require __DIR__ . "/../Vista/Administrador/pedido.php";
     }
 }

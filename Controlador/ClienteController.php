@@ -74,9 +74,8 @@ class ClienteController {
 
         $clientes = $this->clienteService->obtenerClientes();
 
-
+    
         require __DIR__ . "/../Vista/Administrador/Cliente.php";
-
     }
 }
 
