@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../Modelo/ModuloProducto/ProductoService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloProducto/ProductoService.php";
 
 class ProductoController {
     private $productoService;
@@ -58,13 +58,13 @@ class ProductoController {
         $id_vendedor = trim($_POST['id_vendedor'] ?? '');
         $estado = trim($_POST['estado'] ?? '');
 
-        // Manejo de imagen (puede no actualizarse)
+       
         $imagen = null;
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $nombreImagen = basename($_FILES['imagen']['name']);
             $rutaTemporal = $_FILES['imagen']['tmp_name'];
             
-            // Ruta correcta dentro del proyecto
+           
             $rutaDestino = __DIR__ . "/../uploads/" . $nombreImagen;
 
             if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
@@ -105,6 +105,6 @@ class ProductoController {
 
         $productos = $this->productoService->obtenerProductos();
 
-        require __DIR__ . "/../Vista/Administrador/Producto.php";
+        require __DIR__ . "/../../Vista/Administrador/Producto.php";
     }
 }

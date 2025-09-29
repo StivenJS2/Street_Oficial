@@ -2,7 +2,7 @@
 class ValoracionService {
     private $urlValoracion = "http://localhost:8080/valoracion";
 
-    // Obtener todas las valoraciones
+    
     public function obtenerValoraciones() {
         $respuesta = file_get_contents($this->urlValoracion);
         if ($respuesta === FALSE) {
@@ -14,7 +14,6 @@ class ValoracionService {
         return ["success" => true, "data" => $valoraciones];
     }
 
-    // Eliminar una valoración por ID
     public function eliminarValoracion($id_valoracion) {
         $url = $this->urlValoracion . "/" . $id_valoracion;
         $proceso = curl_init($url);

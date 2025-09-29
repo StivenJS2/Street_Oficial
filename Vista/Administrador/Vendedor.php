@@ -15,7 +15,7 @@
 <div class="container-fluid">
   <div class="row">
     
-    <!-- Sidebar -->
+   
     <div class="col-md-3 col-lg-2 sidebar d-flex flex-column bg-dark text-white p-3 min-vh-100">
         <h4 class="text-center mb-4">Menú</h4>
 
@@ -31,7 +31,6 @@
         </div>
     </div>
 
-    <!-- Contenido -->
     <div class="col-md-9 col-lg-10 contenido flex-grow-1 p-4">
         <?php if (!empty($mensaje)): ?>
             <div class="alert alert-info text-center"><?= $mensaje ?></div>
@@ -39,7 +38,7 @@
 
       
 
-    <!-- GET -->
+   
     <div id="seccion-ver" class="seccion">
 
         <h2>Lista de Vendedores</h2>
@@ -75,7 +74,7 @@
     </div>
 
 
-    <!-- POST -->
+    
     <div id="seccion-crear" class="seccion d-none">
 
         <div class="card">
@@ -118,7 +117,7 @@
     </div>
 
 
-    <!-- PUTH -->
+  
     <div id="seccion-actualizar" class="seccion d-none">
         <div class="card">
             <div class="card-header bg-warning text-white">Actualizar Vendedor</div>
@@ -163,7 +162,7 @@
     </div>
 
 
-    <!-- DELETE -->
+    
     <div id="seccion-eliminar" class="seccion d-none">
         <div class="card">
             <div class="card-header bg-danger text-white">Eliminar Vendedor</div>

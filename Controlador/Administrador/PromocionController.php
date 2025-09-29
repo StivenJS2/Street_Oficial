@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../Modelo/ModuloPromocion/PromocionService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloPromocion/PromocionService.php";
 
 class PromocionController {
     private $promocionService;
@@ -69,11 +69,11 @@ class PromocionController {
             }
         }
 
-        // Obtener todas las promociones para mostrar en la vista
+        
         $resultado = $this->promocionService->obtenerPromociones();
         $promociones = $resultado["success"] ? $resultado["data"] : [];
 
-        require __DIR__ . "/../Vista/Administrador/promocion.php";
+        require __DIR__ . "/../../Vista/Administrador/promocion.php";
     }
 }
 ?>
