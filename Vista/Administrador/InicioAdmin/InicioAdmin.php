@@ -1,6 +1,6 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../../css/Administrador/InicioAdmin/InicioAdmin.css">
+<link rel="stylesheet" href="/../../css/Administrador/InicioAdmin/InicioAdmin.css">
 
 
 <body>
@@ -44,7 +44,7 @@
   </div>
 
 
-  <script src="../../js/Administrador/InicioAdmin/inicioAdmin.js" defer></script>
+  <script src="/../../js/Administrador/InicioAdmin/inicioAdmin.js" defer></script>
 </body>
 
 

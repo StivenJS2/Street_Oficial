@@ -111,7 +111,5 @@ public function eliminarCliente($id) {
 
 
 
-
-
 }
 ?>
