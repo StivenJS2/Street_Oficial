@@ -1,28 +1,22 @@
 <?php
-class DetalleProductoService {
-    private $urlDetalleProducto = "http://localhost:8080/detalle_producto";
+class CategoriaService {
+    private $urlCategoria = "http://localhost:8080/categoria";
 
-    // Obtener todos los detalles de producto
-    public function obtenerDetalles() {
-        $respuesta = file_get_contents($this->urlDetalleProducto);
+  
+    public function obtenerCategorias() {
+        $respuesta = file_get_contents($this->urlCategoria);
         if ($respuesta === FALSE) return [];
 
         return json_decode($respuesta, true);
     }
 
-    // Agregar un nuevo detalle de producto
-    public function agregarDetalle($talla, $color, $imagen, $id_producto, $id_categoria, $precio) {
+    public function agregarCategoria($nombre) {
         $datos = [
-            "talla" => $talla,
-            "color" => $color,
-            "imagen" => $imagen,
-            "id_producto" => $id_producto,
-            "id_categoria" => $id_categoria,
-            "precio" => $precio
+            "nombre" => $nombre
         ];
 
         $data_json = json_encode($datos);
-        $proceso = curl_init($this->urlDetalleProducto);
+        $proceso = curl_init($this->urlCategoria);
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
@@ -48,19 +42,13 @@ class DetalleProductoService {
         }
     }
 
-    // Actualizar un detalle de producto
-    public function actualizarDetalle($id, $talla, $color, $imagen, $id_producto, $id_categoria, $precio) {
+    public function actualizarCategoria($id, $nombre) {
         $datos = [
-            "talla" => $talla,
-            "color" => $color,
-            "imagen" => $imagen,
-            "id_producto" => $id_producto,
-            "id_categoria" => $id_categoria,
-            "precio" => $precio
+            "nombre" => $nombre
         ];
 
         $data_json = json_encode($datos);
-        $url = $this->urlDetalleProducto . "/" . $id;
+        $url = $this->urlCategoria . "/" . $id;
         $proceso = curl_init($url);
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
@@ -87,9 +75,8 @@ class DetalleProductoService {
         }
     }
 
-    // Eliminar un detalle de producto
-    public function eliminarDetalle($id) {
-        $url = $this->urlDetalleProducto . "/" . $id;
+    public function eliminarCategoria($id) {
+        $url = $this->urlCategoria . "/" . $id;
         $proceso = curl_init($url);
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../Modelo/ModuloValoracion/ValoracionService.php";
+require_once __DIR__ . "/../../Modelo/Administrador/ModuloValoracion/ValoracionService.php";
 
 class ValoracionController {
     private $valoracionService;
@@ -33,7 +33,7 @@ class ValoracionController {
         $resultado = $this->valoracionService->obtenerValoraciones();
         $valoraciones = $resultado["success"] ? $resultado["data"] : [];
 
-        require __DIR__ . "/../Vista/Administrador/Valoracion.php";
+        require __DIR__ . "/../../Vista/Administrador/Valoracion.php";
     }
 }
 ?>

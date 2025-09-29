@@ -18,5 +18,6 @@ switch ($opcion) {
     default:
         include __DIR__ . '/Vista/PuntoInicio/Inicio.php';
         break;
+
 }
 ?>
