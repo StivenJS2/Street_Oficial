@@ -13,7 +13,7 @@ $urlCarrito ="http://localhost:8080/carrito";
 $urlValoracion ="http://localhost:8080/valoracion";
 $urlPedido="http://localhost:8080/pedido";
 
-$urlLogin ="http://localhost:8080/login"
+$urlLogin ="http://localhost:8080/login";
 
 
 
