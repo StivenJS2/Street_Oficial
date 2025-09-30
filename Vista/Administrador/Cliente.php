@@ -15,7 +15,7 @@
 
     <div class="d-grid gap-3 flex-grow-1">
       <button class="btn btn-primary text-white" onclick="mostrarSeccion('ver')">
-            <img src="../../img/ver-usuario.png" alt="ver" style="width:27px; height:27px; margin-right:5px;">
+            <img src="/img/Administrador/ver-usuario.png" alt="ver" style="width:27px; height:27px; margin-right:5px;">
                 Ver Clientes
     </button>
 
