@@ -23,18 +23,18 @@ class ProductoController {
         $id_vendedor = trim($_POST['id_vendedor'] ?? '');
         $estado = trim($_POST['estado'] ?? '');
 
-        // Manejo de imagen
+      
         $imagen = null;
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $nombreImagen = basename($_FILES['imagen']['name']);
             $rutaTemporal = $_FILES['imagen']['tmp_name'];
             
-            // Ruta correcta dentro del proyecto
-            $rutaDestino = __DIR__ . "/../uploads/" . $nombreImagen;
+           
+            $rutaDestino = __DIR__ . "/../../uploads/" . $nombreImagen;
 
-            // Mover archivo
+           
             if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
-                $imagen = "uploads/" . $nombreImagen; // ruta que se guarda en BD
+                $imagen = "uploads/" . $nombreImagen; 
             }
         }
 
@@ -65,7 +65,7 @@ class ProductoController {
             $rutaTemporal = $_FILES['imagen']['tmp_name'];
             
            
-            $rutaDestino = __DIR__ . "/../uploads/" . $nombreImagen;
+            $rutaDestino = __DIR__ . "/../../uploads/" . $nombreImagen;
 
             if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
                 $imagen = "uploads/" . $nombreImagen;
