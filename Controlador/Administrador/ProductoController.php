@@ -30,7 +30,7 @@ class ProductoController {
             $rutaTemporal = $_FILES['imagen']['tmp_name'];
             
             // Ruta correcta dentro del proyecto
-            $rutaDestino = __DIR__ . "/../uploads/" . $nombreImagen;
+            $rutaDestino = __DIR__ . "/../../uploads/" . $nombreImagen;
 
             // Mover archivo
             if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
@@ -65,7 +65,7 @@ class ProductoController {
             $rutaTemporal = $_FILES['imagen']['tmp_name'];
             
            
-            $rutaDestino = __DIR__ . "/../uploads/" . $nombreImagen;
+            $rutaDestino = __DIR__ . "/../../uploads/" . $nombreImagen;
 
             if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
                 $imagen = "uploads/" . $nombreImagen;
