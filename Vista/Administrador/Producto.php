@@ -5,8 +5,8 @@
     <title>Gestión de Productos</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/Administrador/producto.css"> 
-    <script src="../../js/Administrador/producto.js"></script>
+    <link rel="stylesheet" href="/css/Administrador/producto.css"> 
+    <script src="/js/Administrador/producto.js"></script>
 </head>
 <body>
 <div class="container-fluid">

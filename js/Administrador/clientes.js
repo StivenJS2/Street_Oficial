@@ -1,4 +1,3 @@
-
 function mostrarSeccion(seccion) {
     
     document.querySelectorAll('.seccion').forEach(div => div.classList.add('d-none'));
