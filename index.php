@@ -14,8 +14,11 @@ switch ($opcion) {
         $controller->manejarPeticion();
         break;
 
+   
+
     default:
         include __DIR__ . '/Vista/PuntoInicio/Inicio.php';
         break;
+
 }
 ?>
