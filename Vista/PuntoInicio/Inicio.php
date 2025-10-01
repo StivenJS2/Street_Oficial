@@ -60,7 +60,7 @@
                 </ul>
               </div>
 
-              <a href="#" class="text-dark fs-5">
+              <a href="../../Vista/CarritoCompras/Carrito.php" class="text-dark fs-5">
                 <i class="bi bi-cart3"></i>
               </a>
             </div>
