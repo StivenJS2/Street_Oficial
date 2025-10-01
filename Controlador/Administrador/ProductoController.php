@@ -105,6 +105,9 @@ class ProductoController {
 
         $productos = $this->productoService->obtenerProductos();
 
-        require __DIR__ . "/../../Vista/Administrador/Producto.php";
+        return [
+            'productos' => $productos,
+            'mensaje' => $mensaje
+        ];
     }
 }

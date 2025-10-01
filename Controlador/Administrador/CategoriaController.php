@@ -61,6 +61,6 @@ class CategoriaController {
        
         $categorias = $this->categoriaService->obtenerCategorias();
 
-        require __DIR__ . "/../../Vista/Administrador/Categoria.php";
+         return ['categorias' => $categorias, 'mensaje' => $mensaje];
     }
 }

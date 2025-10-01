@@ -96,9 +96,7 @@ class DetalleProductoController {
 
        
         $detalles = $this->detalleProductoService->obtenerDetalles();
-
-       
-        require __DIR__ . "/../../Vista/Administrador/Detalle_Producto.php";
+      return ['detalles' => $detalles, 'mensaje' => $mensaje];
     }
 }
 ?>

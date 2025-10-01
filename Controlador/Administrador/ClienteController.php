@@ -3,15 +3,17 @@ require_once __DIR__ . "/../../Modelo/Administrador/ModuloCliente/ClienteService
 
 class ClienteController {
     private $clienteService;
-   
+
     public function __construct() {
         $this->clienteService = new ClienteService();
     }
-   
+
+    // Retornamos un array con 'clientes' y 'mensaje'
     public function manejarPeticion() {
         $mensaje = "";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // tus formularios deben enviar _action (ej. <input name="_action" value="agregar">)
             $accion = $_POST["_action"] ?? "";
 
             switch ($accion) {
@@ -27,16 +29,20 @@ class ClienteController {
                         $resultado = $this->clienteService->agregarCliente(
                             $nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico
                         );
-                        $mensaje = $resultado["success"]
-                            ? "<p style='color:green;'>Cliente agregado correctamente</p>"
-                            : "<p style='color:red;'>Error: " . $resultado["error"] . "</p>";
+
+                        if (!empty($resultado) && isset($resultado["success"]) && $resultado["success"]) {
+                            $mensaje = "<div class='alert alert-success'>Cliente agregado correctamente.</div>";
+                        } else {
+                            $err = $resultado["error"] ?? "Error desconocido";
+                            $mensaje = "<div class='alert alert-danger'>Error: {$err}</div>";
+                        }
                     } else {
-                        $mensaje = "<p style='color:red;'>Todos los campos son obligatorios.</p>";
+                        $mensaje = "<div class='alert alert-danger'>Todos los campos son obligatorios.</div>";
                     }
                     break;
 
                 case "actualizar":
-                    $id = $_POST["id"] ?? null;
+                    $id = $_POST["id_cliente"] ?? null;
                     $nombre = trim($_POST['nombre'] ?? '');
                     $apellido = trim($_POST['apellido'] ?? '');
                     $contrasena = trim($_POST['contrasena'] ?? '');
@@ -48,33 +54,39 @@ class ClienteController {
                         $resultado = $this->clienteService->actualizarCliente(
                             $id, $nombre, $apellido, $contrasena, $direccion, $telefono, $correo_electronico
                         );
-                        $mensaje = $resultado["success"]
-                            ? "<p style='color:green;'>Cliente actualizado correctamente</p>"
-                            : "<p style='color:red;'>Error: " . $resultado["error"] . "</p>";
+                        if (!empty($resultado) && isset($resultado["success"]) && $resultado["success"]) {
+                            $mensaje = "<div class='alert alert-success'>Cliente actualizado correctamente.</div>";
+                        } else {
+                            $err = $resultado["error"] ?? "Error desconocido";
+                            $mensaje = "<div class='alert alert-danger'>Error: {$err}</div>";
+                        }
                     } else {
-                        $mensaje = "<p style='color:red;'>Todos los campos son obligatorios.</p>";
+                        $mensaje = "<div class='alert alert-danger'>Todos los campos son obligatorios.</div>";
                     }
                     break;
 
                 case "eliminar":
-                    $id = $_POST["id"] ?? null;
+                    $id = $_POST["id_cliente"] ?? null;
 
                     if ($id) {
                         $resultado = $this->clienteService->eliminarCliente($id);
-                        $mensaje = $resultado["success"]
-                            ? "<p style='color:green;'>Cliente eliminado correctamente</p>"
-                            : "<p style='color:red;'>Error: " . $resultado["error"] . "</p>";
+                        if (!empty($resultado) && isset($resultado["success"]) && $resultado["success"]) {
+                            $mensaje = "<div class='alert alert-success'>Cliente eliminado correctamente.</div>";
+                        } else {
+                            $err = $resultado["error"] ?? "Error desconocido";
+                            $mensaje = "<div class='alert alert-danger'>Error: {$err}</div>";
+                        }
                     } else {
-                        $mensaje = "<p style='color:red;'>El ID del cliente es obligatorio.</p>";
+                        $mensaje = "<div class='alert alert-danger'>El ID del cliente es obligatorio.</div>";
                     }
                     break;
             }
         }
 
+        // Traer los clientes (si no hay filas, se espera un array vacío)
         $clientes = $this->clienteService->obtenerClientes();
+        
 
-    require_once __DIR__ . "/../../Vista/Administrador/Cliente.php";
-
+        return ['clientes' => $clientes, 'mensaje' => $mensaje];
     }
 }
-

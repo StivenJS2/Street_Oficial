@@ -1,50 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestión de Vendedores</title>
+<?php
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/Administrador/vendedores.css"> 
-<script src="../../js/Administrador/vendedores.js"></script>
+$vendedores = $vendedores ?? [];
+$mensaje = $mensaje ?? "";
+?>
 
-</head>
-<body>
+<div class="container">
+    <?php if (!empty($mensaje)) echo $mensaje; ?>
 
-<body>
-<div class="container-fluid">
-  <div class="row">
-    
-   
-    <div class="col-md-3 col-lg-2 sidebar d-flex flex-column bg-dark text-white p-3 min-vh-100">
-        <h4 class="text-center mb-4">Menú</h4>
-
-        <div class="d-grid gap-3 flex-grow-1">
-            <button class="btn btn-primary" onclick="mostrarSeccion('ver')">Vendedores</button>
-            <button class="btn btn-success" onclick="mostrarSeccion('crear')">Agregar</button>
-            <button class="btn btn-warning text-white" onclick="mostrarSeccion('actualizar')">Actualizar</button>
-            <button class="btn btn-danger" onclick="mostrarSeccion('eliminar')">Eliminar</button>
-
-            <div class="mt-auto">
-                <a href="index.php" class="btn btn-secondary w-100">Volver al Menú</a>
+    <div class="card mt-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Listado de Vendedores</h5>
+            <div>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarVendedor">
+                    <i class="fas fa-plus"></i> Agregar
+                </button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalActualizarVendedor">
+                    <i class="fas fa-edit"></i> Actualizar
+                </button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarVendedor">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-9 col-lg-10 contenido flex-grow-1 p-4">
-        <?php if (!empty($mensaje)): ?>
-            <div class="alert alert-info text-center"><?= $mensaje ?></div>
-        <?php endif; ?>
-
-      
-
-   
-    <div id="seccion-ver" class="seccion">
-
-        <h2>Lista de Vendedores</h2>
-
-        <?php if (is_array($vendedores)): ?>
-            <table class="table table-striped table-bordered mt-3">
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -55,135 +35,133 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($vendedores as $v): ?>
-                        <tr>
-                            <td><?= $v["id_vendedor"] ?></td>
-                            <td><?= $v["nombre"] ?></td>
-                            <td><?= $v["apellido"] ?></td>
-                            <td><?= $v["correo_electronico"] ?></td>
-                            <td><?= $v["telefono"] ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                    <?php if (!empty($vendedores)): ?>
+                        <?php foreach ($vendedores as $Venito): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($Venito['id_vendedor']) ?></td>
+                                <td><?= htmlspecialchars($Venito['nombre']) ?></td>
+                                <td><?= htmlspecialchars($Venito['apellido']) ?></td>
+                                <td><?= htmlspecialchars($Venito['correo_electronico']) ?></td>
+                                <td><?= htmlspecialchars($Venito['telefono'] ?? '') ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="5" class="text-center">No hay vendedores registrados.</td></tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
-
-        <?php else: ?>
-            <p class="text-danger">No se encontraron vendedores.</p>
-        <?php endif; ?>
-
-    </div>
-
-
-    
-    <div id="seccion-crear" class="seccion d-none">
-
-        <div class="card">
-            <div class="card-header bg-success text-white">Agregar Vendedor</div>
-
-            <div class="card-body">
-
-                <form method="POST">
-                    <input type="hidden" name="_action" value="agregar">
-
-                    <div class="mb-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Apellido</label>
-                        <input type="text" name="apellido" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email" name="correo_electronico" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Teléfono</label>
-                        <input type="text" name="telefono" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="contrasena" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-success">Agregar Vendedor</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-  
-    <div id="seccion-actualizar" class="seccion d-none">
-        <div class="card">
-            <div class="card-header bg-warning text-white">Actualizar Vendedor</div>
-            <div class="card-body">
-                <form method="POST">
-                    <input type="hidden" name="_action" value="actualizar">
-
-                    <div class="mb-3">
-                        <label class="form-label">ID</label>
-                        <input type="number" name="id" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Apellido</label>
-                        <input type="text" name="apellido" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Correo electrónico</label>
-                        <input type="email" name="correo_electronico" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Teléfono</label>
-                        <input type="text" name="telefono" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="contrasena" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-warning text-white">Actualizar Vendedor</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    
-    <div id="seccion-eliminar" class="seccion d-none">
-        <div class="card">
-            <div class="card-header bg-danger text-white">Eliminar Vendedor</div>
-            <div class="card-body">
-                <form method="POST">
-                    <input type="hidden" name="_action" value="eliminar">
-
-                    <div class="mb-3">
-                        <label class="form-label">ID</label>
-                        <input type="number" name="id" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-danger">Eliminar Vendedor</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<div class="modal fade" id="modalAgregarVendedor" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="index.php?opcion=vendedor">
+        <input type="hidden" name="_action" value="agregar">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Vendedor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" placeholder="Ingrese nombre" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Apellido</label>
+            <input class="form-control" type="text" name="apellido" placeholder="Ingrese apellido" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Correo electrónico</label>
+            <input class="form-control" type="email" name="correo_electronico" placeholder="ejemplo@correo.com" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Teléfono</label>
+            <input class="form-control" type="tel" name="telefono" placeholder="Ingrese teléfono" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Contraseña</label>
+            <input class="form-control" type="password" name="contrasena" placeholder="Ingrese contraseña" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
+
+<div class="modal fade" id="modalActualizarVendedor" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="index.php?opcion=vendedor">
+        <input type="hidden" name="_action" value="actualizar">
+        <div class="modal-header">
+          <h5 class="modal-title">Actualizar Vendedor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">ID Vendedor</label>
+            <input class="form-control" type="number" name="id_vendedor" placeholder="ID del vendedor" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" placeholder="Ingrese nombre" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Apellido</label>
+            <input class="form-control" type="text" name="apellido" placeholder="Ingrese apellido" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Correo electrónico</label>
+            <input class="form-control" type="email" name="correo_electronico" placeholder="ejemplo@correo.com" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Teléfono</label>
+            <input class="form-control" type="tel" name="telefono" placeholder="Ingrese teléfono" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Contraseña</label>
+            <input class="form-control" type="password" name="contrasena" placeholder="Ingrese contraseña" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-warning">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalEliminarVendedor" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="index.php?opcion=vendedor">
+        <input type="hidden" name="_action" value="eliminar">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar Vendedor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">ID Vendedor</label>
+            <input class="form-control" type="number" name="id_vendedor" placeholder="ID del vendedor" required>
+          </div>
+          <p class="text-danger">Esta acción no se puede deshacer</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

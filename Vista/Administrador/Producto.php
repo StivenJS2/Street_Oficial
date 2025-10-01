@@ -1,43 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestión de Productos</title>
+<?php
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/Administrador/producto.css"> 
-    <script src="../../js/Administrador/producto.js"></script>
-</head>
-<body>
-<div class="container-fluid">
-  <div class="row">
-    
-    <div class="col-md-3 col-lg-2 sidebar d-flex flex-column bg-dark text-white p-3 min-vh-100">
-        <h4 class="text-center mb-4">Menú</h4>
+$productos = $productos ?? [];
+$mensaje = $mensaje ?? "";
+?>
 
-        <div class="d-grid gap-3 flex-grow-1">
-            <button class="btn btn-primary" onclick="mostrarSeccion('ver')">Productos</button>
-            <button class="btn btn-success" onclick="mostrarSeccion('crear')">Agregar</button>
-            <button class="btn btn-warning text-white" onclick="mostrarSeccion('actualizar')">Actualizar</button>
-            <button class="btn btn-danger" onclick="mostrarSeccion('eliminar')">Eliminar</button>
+<div class="container">
+    <?php if (!empty($mensaje)) echo $mensaje; ?>
 
-            <div class="mt-auto">
-                <a href="index.php" class="btn btn-secondary w-100">Volver al Menú</a>
+    <div class="card mt-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Listado de Productos</h5>
+            <div>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarProducto">
+                    <i class="fas fa-plus"></i> Agregar
+                </button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalActualizarProducto">
+                    <i class="fas fa-edit"></i> Actualizar
+                </button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarProducto">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
             </div>
         </div>
-    </div>
 
-   
-  <div class="col-md-9 col-lg-10 contenido flex-grow-1 p-4">
-    <?php if (!empty($mensaje)): ?>
-        <div class="alert alert-info text-center"><?= $mensaje ?></div>
-    <?php endif; ?>
-
-    <div id="seccion-ver" class="seccion">
-        <h2>Lista de Productos</h2>
-
-        <?php if (is_array($productos)): ?>
-            <table class="table table-striped table-bordered mt-3">
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -50,160 +37,159 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($productos as $p): ?>
-                        <tr>
-                            <td><?= $p["id_producto"] ?></td>
-                            <td><?= $p["nombre"] ?></td>
-                            <td><?= $p["descripcion"] ?></td>
-                            <td><?= $p["cantidad"] ?></td>
-                            <td>
-                                <?php if (!empty($p["imagen"])): ?>
-                                    <a href="../../<?= htmlspecialchars($p["imagen"]) ?>" target="_blank">
-                                        <img src="../../<?= htmlspecialchars($p["imagen"]) ?>" 
-                                             alt="imagen producto" 
-                                             width="80" height="80">
-                                    </a>
-                                <?php else: ?>
-                                    <span>Sin imagen</span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?= $p["id_vendedor"] ?></td>
-                            <td><?= $p["estado"] ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                    <?php if (!empty($productos)): ?>
+                        <?php foreach ($productos as $pro): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($pro['id_producto']) ?></td>
+                                <td><?= htmlspecialchars($pro['nombre']) ?></td>
+                                <td><?= htmlspecialchars($pro['descripcion']) ?></td>
+                                <td><?= htmlspecialchars($pro['cantidad']) ?></td>
+                                <td>
+                                    <?php if (!empty($pro['imagen'])): ?>
+                                        <a href="../../<?= htmlspecialchars($pro['imagen']) ?>" target="_blank">
+                                            <img src="../../<?= htmlspecialchars($pro['imagen']) ?>" alt="imagen producto" width="80" height="80">
+                                        </a>
+                                    <?php else: ?>
+                                        <span>Sin imagen</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= htmlspecialchars($pro['id_vendedor']) ?></td>
+                                <td><?= htmlspecialchars($pro['estado']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="7" class="text-center">No hay productos registrados.</td></tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
-        <?php else: ?>
-            <p class="text-danger">No se encontraron productos.</p>
-        <?php endif; ?>
-    </div>
-</div>
-
-        
-        <div id="seccion-crear" class="seccion d-none">
-    <div class="card">
-        <div class="card-header bg-success text-white">Agregar Producto</div>
-        <div class="card-body">
-            <form method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="_action" value="agregar">
-
-                <div class="mb-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" name="nombre" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Descripción</label>
-                    <textarea name="descripcion" class="form-control" required></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Cantidad</label>
-                    <input type="number" name="cantidad" class="form-control" required>
-                </div>
-
-                
-                <div class="mb-3">
-                    <label class="form-label">Imagen</label>
-                    <input type="file" name="imagen" class="form-control" accept="image/*" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">ID Vendedor</label>
-                    <input type="number" name="id_vendedor" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Estado</label>
-                    <select name="estado" class="form-select" required>
-                        <option value="activo">Activo</option>
-                        <option value="inactivo">Inactivo</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-success">Agregar Producto</button>
-            </form>
         </div>
     </div>
 </div>
 
-
-<div id="seccion-actualizar" class="seccion d-none">
-    <div class="card">
-        <div class="card-header bg-warning text-white">Actualizar Producto</div>
-        <div class="card-body">
-            <form method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="_action" value="actualizar">
-
-                <div class="mb-3">
-                    <label class="form-label">ID Producto</label>
-                    <input type="number" name="id_producto" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" name="nombre" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Descripción</label>
-                    <textarea name="descripcion" class="form-control" required></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Cantidad</label>
-                    <input type="number" name="cantidad" class="form-control" required>
-                </div>
-
-                
-                <div class="mb-3">
-                    <label class="form-label">Imagen</label>
-                    <input type="file" name="imagen" class="form-control" accept="image/*">
-                    <small class="text-muted">Si no seleccionas nada, se mantendrá la actual.</small>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">ID Vendedor</label>
-                    <input type="number" name="id_vendedor" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Estado</label>
-                    <select name="estado" class="form-select" required>
-                        <option value="activo">Activo</option>
-                        <option value="inactivo">Inactivo</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-warning text-white">Actualizar Producto</button>
-            </form>
+<div class="modal fade" id="modalAgregarProducto" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" enctype="multipart/form-data" action="index.php?opcion=producto">
+        <input type="hidden" name="_action" value="agregar">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-    </div>
-</div>
-
-
-     
-        <div id="seccion-eliminar" class="seccion d-none">
-            <div class="card">
-                <div class="card-header bg-danger text-white">Eliminar Producto</div>
-                <div class="card-body">
-                    <form method="POST">
-                        <input type="hidden" name="_action" value="eliminar">
-
-                        <div class="mb-3">
-                            <label class="form-label">ID Producto</label>
-                            <input type="number" name="id_producto" class="form-control" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-danger">Eliminar Producto</button>
-                    </form>
-                </div>
-            </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" placeholder="Ingrese el nombre del producto" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" placeholder="Ingrese la descripción del producto" required></textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Cantidad</label>
+            <input class="form-control" type="number" name="cantidad" placeholder="Ingrese la cantidad disponible" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Imagen</label>
+            <input class="form-control" type="file" name="imagen" accept="image/*" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">ID Vendedor</label>
+            <input class="form-control" type="number" name="id_vendedor" placeholder="Ingrese el ID del vendedor" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Estado</label>
+            <select class="form-select" name="estado" required>
+                <option value="">Seleccione un estado</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Agregar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+<div class="modal fade" id="modalActualizarProducto" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" enctype="multipart/form-data" action="index.php?opcion=producto">
+        <input type="hidden" name="_action" value="actualizar">
+        <div class="modal-header">
+          <h5 class="modal-title">Actualizar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">ID Producto</label>
+            <input class="form-control" type="number" name="id_producto" placeholder="Ingrese el ID del producto" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" placeholder="Ingrese el nombre del producto" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" name="descripcion" placeholder="Ingrese la descripción del producto" required></textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Cantidad</label>
+            <input class="form-control" type="number" name="cantidad" placeholder="Ingrese la cantidad disponible" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Imagen</label>
+            <input class="form-control" type="file" name="imagen" accept="image/*">
+            <small class="text-muted">Si no selecciona nada, se mantendrá la actual.</small>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">ID Vendedor</label>
+            <input class="form-control" type="number" name="id_vendedor" placeholder="Ingrese el ID del vendedor" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Estado</label>
+            <select class="form-select" name="estado" required>
+                <option value="">Seleccione un estado</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-warning">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalEliminarProducto" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="index.php?opcion=producto">
+        <input type="hidden" name="_action" value="eliminar">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">ID Producto</label>
+            <input class="form-control" type="number" name="id_producto" placeholder="Ingrese el ID del producto" required>
+          </div>
+          <p class="text-danger">Esta acción no se puede deshacer</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

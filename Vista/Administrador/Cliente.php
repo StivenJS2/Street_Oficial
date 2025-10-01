@@ -1,206 +1,188 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestión de Clientes</title>
+<?php
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/Administrador/clientes.css"> 
-    <script src="../../js/Administrador/clientes.js"></script>
-</head>
-<body>
+$clientes = $clientes ?? [];
+$mensaje = $mensaje ?? "";
+?>
 
-<div class="sidebar d-flex flex-column bg-dark text-white p-3">
-    <h4 class="text-center mb-4">Menú</h4>
+<div class="container">
+    <?php if (!empty($mensaje)) echo $mensaje; ?>
 
-    <div class="d-grid gap-3 flex-grow-1">
-      <button class="btn btn-primary text-white" onclick="mostrarSeccion('ver')">
-            <img src="../../img/ver-usuario.png" alt="ver" style="width:27px; height:27px; margin-right:5px;">
-                Ver Clientes
-    </button>
-
-  <button class="btn btn-success text-white" onclick="mostrarSeccion('crear')">
-            <img src="../../img/agregar-usuario.png" alt="crear" style="width:20px; height:20px; margin-right:5px;">
-                Agregar Cliente
-    </button>
-
-
-    <button class="btn btn-warning text-black " onclick="mostrarSeccion('actualizar')">
-            <img src="../../img/icono_actualizar.png" alt="Actualizar" style="width:25px; height:25px; margin-right:4px;">
-                   Actualizar Cliente 
-    </button>
+    <div class="card mt-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Listado de Clientes</h5>
+            <div>
+                
+                            
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+                    <i class="fas fa-plus"></i> Agregar
+                </button>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalActualizar">
+                    <i class="fas fa-edit"></i> Actualizar
+                </button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
 
 
-
-    <button class="btn btn-danger text-black " onclick="mostrarSeccion('eliminar')">
-            <img src="../../img/borrar.gif" alt="eliminar" style="width:25px; height:25px; margin-right:4px;">
-                   Eliminar Cliente 
-    </button>
-
-        
-
-        <div class="mt-auto">
-        <a href="index.php" class="btn btn-secondary w-100"> 
-        <img src="../../img/casa.png" alt="Volver" style="width:32px; height:32px; margin-bottom:6px;">
-        Volver al Menú</a>
             </div>
-    </div>
-</div>
+        </div>
 
-
-    
-<div class="contenido flex-grow-1 p-4">
-        <?php if (!empty($mensaje)): ?>
-            <div class="alert alert-info text-center"><?= $mensaje ?></div>
-        <?php endif; ?>
-
-        <div id="seccion-ver" class="seccion">
-            <h2>Lista de Clientes</h2>
-            <?php if (is_array($clientes)): ?>
-                <table class="table table-striped table-bordered mt-3">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Correo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($clientes)): ?>
                         <?php foreach ($clientes as $cliente): ?>
                             <tr>
-                                <td><?= $cliente["id_cliente"] ?></td>
-                                <td><?= $cliente["nombre"] ?></td>
-                                <td><?= $cliente["apellido"] ?></td>
-                                <td><?= $cliente["correo_electronico"] ?></td>
+                                <td><?= htmlspecialchars($cliente['id_cliente']) ?></td>
+                                <td><?= htmlspecialchars($cliente['nombre']) ?></td>
+                                <td><?= htmlspecialchars($cliente['apellido']) ?></td>
+                                <td><?= htmlspecialchars($cliente['correo_electronico']) ?></td>
+                                <td><?= htmlspecialchars($cliente['telefono'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($cliente['direccion'] ?? '') ?></td>
                             </tr>
                         <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <p class="text-danger">No se encontraron clientes.</p>
-    <?php endif; ?>
-</div>
-
-
-      
-<div id="seccion-crear" class="seccion d-none">
-    <div class="card">
-         <div class="card-header bg-success text-white">Agregar Cliente</div>
-            <div class="card-body">
-                 <form method="POST">
-                        <input type="hidden" name="_action" value="agregar">
-
-                        <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" name="nombre" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Apellido</label>
-                            <input type="text" name="apellido" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña</label>
-                            <input type="password" name="contrasena" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Dirección</label>
-                            <input type="text" name="direccion" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Teléfono</label>
-                            <input type="text" name="telefono" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Correo electrónico</label>
-                            <input type="email" name="correo_electronico" class="form-control" required>
-                    </div>
-
-                <button type="submit" class="btn btn-success">Agregar Cliente</button>
-            </form>
+                    <?php else: ?>
+                        <tr><td colspan="6" class="text-center">No hay clientes registrados.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 
-<div id="seccion-actualizar" class="seccion d-none">
-    <div class="card">
-            <div class="card-header bg-warning text-white">Actualizar Cliente</div>
-                <div class="card-body">
-                    <form method="POST">
-                        <input type="hidden" name="_action" value="actualizar">
-
-                        <div class="mb-3">
-                            <label class="form-label">ID</label>
-                            <input type="number" name="id" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" name="nombre" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Apellido</label>
-                            <input type="text" name="apellido" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña</label>
-                            <input type="password" name="contrasena" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Dirección</label>
-                            <input type="text" name="direccion" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Teléfono</label>
-                            <input type="text" name="telefono" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Correo electrónico</label>
-                            <input type="email" name="correo_electronico" class="form-control" required>
-                        </div>
-
-                 <button type="submit" class="btn btn-warning text-white">Actualizar Cliente</button>
-             </form>
-         </div>
-    </div>
-</div>
-
-
-<div id="seccion-eliminar" class="seccion d-none">
-    <div class="card">
-            <div class="card-header bg-danger text-white">Eliminar Cliente</div>
-                <div class="card-body">
-                    <form method="POST">
-                        <input type="hidden" name="_action" value="eliminar">
-
-                        <div class="mb-3">
-                            <label class="form-label">ID</label>
-                            <input type="number" name="id" class="form-control" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-danger">Eliminar Cliente</button>
-                    </form>
-                </div>
-            </div>
+<div class="modal fade" id="modalAgregar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="index.php?opcion=cliente">
+        <input type="hidden" name="_action" value="agregar">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" placeholder="Ingrese nombre" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Apellido</label>
+            <input class="form-control" type="text" name="apellido" placeholder="Ingrese apellido" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Contraseña</label>
+            <input class="form-control" type="password" name="contrasena" placeholder="Ingrese contraseña" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Dirección</label>
+            <input class="form-control" type="text" name="direccion" placeholder="Ingrese dirección" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Teléfono</label>
+            <input class="form-control" type="tel" name="telefono" placeholder="Ingrese teléfono" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Correo electrónico</label>
+            <input class="form-control" type="email" name="correo_electronico" placeholder="ejemplo@correo.com" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Agregar</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
-</html>
+<div class="modal fade" id="modalActualizar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="index.php?opcion=cliente">
+        <input type="hidden" name="_action" value="actualizar">
+        <div class="modal-header">
+          <h5 class="modal-title">Actualizar Cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">ID Cliente</label>
+            <input class="form-control" type="number" name="id_cliente" placeholder="ID del cliente" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" placeholder="Ingrese nombre" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Apellido</label>
+            <input class="form-control" type="text" name="apellido" placeholder="Ingrese apellido" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Contraseña</label>
+            <input class="form-control" type="password" name="contrasena" placeholder="Ingrese contraseña" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Dirección</label>
+            <input class="form-control" type="text" name="direccion" placeholder="Ingrese dirección" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Teléfono</label>
+            <input class="form-control" type="tel" name="telefono" placeholder="Ingrese teléfono" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Correo electrónico</label>
+            <input class="form-control" type="email" name="correo_electronico" placeholder="ejemplo@correo.com" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-warning">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+     
+
+
+
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="index.php?opcion=cliente">
+        <input type="hidden" name="_action" value="eliminar">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar Cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">ID Cliente</label>
+            <input class="form-control" name="id_cliente" type="number" required>
+          </div>
+          <p class="text-danger"> Esta acción no se puede deshacer</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
