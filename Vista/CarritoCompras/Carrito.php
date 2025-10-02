@@ -38,20 +38,20 @@
 
         <!-- logo -->
         <a href="../../Vista/PuntoInicio/Inicio.php" class="mx-auto logo">
-            <img src="../../img/CarritoCompras/Logo.png" alt="Logo">
+            <img src="../../img/CarritoCompras/Logo-blanco.png" alt="Logo">
         </a>
 
         <!-- iconos(busqueda,loguin,carrito) -->
         <div class="botones d-flex align-items-center">
-            <i class="bi bi-search" style="font-size: 20px; color: black; margin-right:8px;"></i>
+            <i class="bi bi-search" style="font-size: 20px; color: white; margin-right:8px;"></i>
             <input type="text" class="form-control form-control-sm rounded-pill mx-2" placeholder="Buscar..." aria-label="Buscar">
 
             <a href="#">
-                <i class="bi bi-person" style="font-size: 24px; margin-left: 15px; color: black;"></i>
+                <i class="bi bi-person" style="font-size: 24px; margin-left: 15px; color: white;"></i>
             </a>
 
             <a href="#">
-                <i class="bi bi-cart" data-modal="modalCarrito" style="font-size: 24px; margin-left: 15px; color: black;"></i>
+                <i class="bi bi-cart" data-modal="modalCarrito" style="font-size: 24px; margin-left: 15px; color: white;"></i>
             </a>
         </div>
     </header>
