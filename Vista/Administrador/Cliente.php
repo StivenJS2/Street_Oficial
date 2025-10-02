@@ -11,8 +11,6 @@ $mensaje = $mensaje ?? "";
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Listado de Clientes</h5>
             <div>
-                
-                            
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
                     <i class="fas fa-plus"></i> Agregar
                 </button>
@@ -22,14 +20,8 @@ $mensaje = $mensaje ?? "";
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar">
                     <i class="fas fa-trash"></i> Eliminar
                 </button>
-
-        
-
-        <div class="mt-auto">
-        <a href="index.php" class="btn btn-secondary w-100"> 
-        <img src="../../img/casa.png" alt="Volver" style="width:32px; height:32px; margin-bottom:6px;">
-        Volver al Menú</a>
             </div>
+
         </div>
 
         <div class="card-body p-0">
