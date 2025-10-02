@@ -1,11 +1,11 @@
 
 .logo img  {
-  height: 75px;   /* tamaño del logo */
-  transition: transform 0.5s ease; /* animación suave */
+  height: 75px;   
+  transition: transform 0.5s ease; 
 }
 
 .logo img :hover {
-  transform: scale(1.1); /* un pequeño zoom al pasar el mouse */
+  transform: scale(1.1); 
 }
 
 
@@ -75,7 +75,7 @@
 
 /* menu sidebar */
 .modal {
-  display: none; /* oculto por defecto */
+  display: none; 
   position: fixed;
   z-index: 1050;
   left: 0;
@@ -156,14 +156,14 @@
 
 
 .btn-boton-pago {
-  background-color: rgb(221, 214, 120);   /* color de fondo */
-  color: rgb(0, 0, 0);              /* color del texto */
-  border: none;              /* quitar borde */
+  background-color: rgb(221, 214, 120);   
+  color: rgb(0, 0, 0);             
+  border: none;              
 }
 
 .btn-boton-pago:hover {
-  background-color: #000000;    /* un gris más claro al pasar el mouse */
-  color: #ffffff;            /* texto amarillo de hover */
+  background-color: #000000;    
+  color: #ffffff;            
 }
 
 
@@ -172,15 +172,15 @@
 
 /* Estilos específicos para el Carrusel de Sugerencias */
 
-/* Asegura que los indicadores sean visibles */
+
 .carousel-indicators button {
-    background-color: #333; /* Color oscuro para los puntos indicadores */
+    background-color: #333; /* Color indicadores */
 }
 
 /* Estilo para las flechas de navegación */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-color: #333; /* Fondo para las flechas */
+    background-color: #333; 
     padding: 15px;
     border-radius: 50%;
     opacity: 0.8;
@@ -188,12 +188,12 @@
 
 .carousel-control-prev, 
 .carousel-control-next {
-    width: 5%; /* Limita el ancho del control para que no cubra toda la tarjeta */
+    width: 5%; 
 }
 
-/* Ajusta el texto de las tarjetas dentro del carrusel */
+
 .carousel-item .card-title {
-    font-size: 0.9rem; /* Un poco más pequeño que en el carrito */
+    font-size: 0.9rem; 
 }
 
 

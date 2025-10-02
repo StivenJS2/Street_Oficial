@@ -4,7 +4,7 @@ function abrirModal() {
   modal.style.display = "block";
   setTimeout(() => {
     modal.classList.add("show");
-  }, 10); // pequeña pausa para animación
+  }, 10); 
 }
 
 // ==== Cerrar Modal ====
@@ -17,7 +17,7 @@ function cerrarModal() {
   modal.classList.remove("show");
   setTimeout(() => {
     modal.style.display = "none";
-  }, 400); // espera a que termine animación
+  }, 400); 
 }
 
 // ==== Cerrar modal al hacer click fuera del contenido ====
