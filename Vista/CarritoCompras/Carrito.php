@@ -30,7 +30,7 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration-none">Inicio</a></li>
+                    <li><a href="../PuntoInicio/Inicio.php" class="text-decoration-none">Inicio</a></li>
                     <li><a href="#" class="text-decoration-none">Catálogo</a></li>
                     <li><a href="#" class="text-decoration-none">Ofertas</a></li>
                     <li><a href="#" class="text-decoration-none">Contacto</a></li>
@@ -45,8 +45,8 @@
 
         <!-- Iconos (búsqueda, login, carrito) -->
         <div class="botones d-flex align-items-center">
-            <i class="bi bi-search" style="font-size: 20px; color: white; margin-right:8px;"></i>
-            <input type="text" class="form-control form-control-sm rounded-pill mx-2" placeholder="Buscar..." aria-label="Buscar">
+            <i class="bi bi-search"  style="font-size: 20px; color: white; margin-right:8px;"></i>
+            <input type="text"  class="form-control form-control-sm rounded-pill mx-2" placeholder="Buscar..." aria-label="Buscar">
 
             <a href="#">
                 <i class="bi bi-person" style="font-size: 24px; margin-left: 15px; color: white;"></i>
@@ -104,10 +104,10 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body">
-                                    <h5 class="card-title">Jean Azul</h5>
+                                    <h5 class="card-title">Chaqueta gris</h5>
                                     <p class="card-text text-muted">Descripción breve del producto</p>
-                                    <p class="card-text text-muted">Talla: 36</p>
-                                    <p class="card-text text-muted">Material: Jean</p>
+                                    <p class="card-text text-muted">Talla: L</p>
+                                    <p class="card-text text-muted">Material: Algodon</p>
                                     <p class="text-success">Disponible</p>
 
                                     <!-- Botones -->
@@ -128,20 +128,35 @@
                 <!-- Fin columna productos -->
 
                 <!-- Columna resumen -->
-                <div class="col-lg-4">
-                    <div class="card p-3 shadow-sm">
-                        <h5 class="mb-3">Resumen del pedido</h5>
-                        <p class="d-flex justify-content-between">
-                            <span>Subtotal (2 productos):</span>
-                            <span class="fw-bold">$199.98</span>
-                        </p>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="regalo">
-                            <label class="form-check-label" for="regalo">Este pedido es un regalo</label>
-                        </div>
-                        <button class="btn btn-boton-pago w-100">Proceder al pago</button>
-                    </div>
-                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+    <div class="card p-4 shadow-sm">
+        <h5 class="mb-3 border-bottom pb-2">Resumen del pedido</h5>
+        
+        <p class="d-flex justify-content-between">
+            <span>Subtotal (2 productos):</span>
+            <span class="fw-bold text-dark">$149.000</span> 
+            </p>
+        
+        <p class="d-flex justify-content-between text-success">
+            <span>Costo de Envío:</span>
+            <span class="fw-bold">GRATIS</span>
+        </p>
+
+        <div class="form-check mb-3">
+             </div>
+
+        <div class="border-top pt-3 mt-2">
+            <p class="d-flex justify-content-between fs-5">
+                <span class="fw-bold">Total del Pedido:</span>
+                <span class="fw-bold text-dark">$149.000</span>
+            </p>
+        </div>
+
+        <button class="btn btn-boton-pago w-100 mt-3 py-2" id="btnProcederPago">
+            Proceder al pago
+        </button>
+    </div>
+</div>
                 <!-- Fin columna resumen -->
 
             </div>
@@ -171,14 +186,16 @@
                         <div class="row row-cols-2 row-cols-md-4 g-4 justify-content-center">
                             <div class="col">
                                 <div class="card h-100 text-center p-2">
-                                    <img src="../../img/CarritoCompras/Chaqueta-gris.jpg" class="card-img-top mx-auto mt-2" alt="Producto Sugerido 1" style="height: 150px; width: auto; object-fit: contain;">
-                                    <div class="card-body">
-                                        <h6 class="card-title text-truncate">Nombre de producto sugerido 1</h6>
-                                        <p class="text-danger small fw-bold">Oferta del día</p>
-                                        <p class="card-text fw-bold">$45.99</p>
-                                        <button class="btn btn-sm btn-boton-pago w-100">Agregar al carrito</button>
-                                    </div>
-                                </div>
+    <img src="../../img/CarritoCompras/Chaqueta-gris.jpg" class="card-img-top mx-auto mt-2" alt="Chaqueta gris de oferta" style="height: 150px; width: auto; object-fit: contain;">
+    <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+            <h6 class="card-title text-truncate">Nombre de producto sugerido 1</h6>
+            <p class="text-danger small fw-bold">Oferta del día</p>
+            <p class="card-text fw-bold">$45.99</p>
+        </div>
+        <button class="btn-agregar-carrusel">Agregar al carrito</button>
+    </div>
+</div>
                             </div>
                             
                             <div class="col">
@@ -188,7 +205,7 @@
                                         <h6 class="card-title text-truncate">Jean negro ancho</h6>
                                         <p class="text-muted small">Envío GRATIS</p>
                                         <p class="card-text fw-bold">$120.00</p>
-                                        <button class="btn btn-sm btn-boton-pago w-100">Agregar al carrito</button>
+                                        <button class="btn-agregar-carrusel">Agregar al carrito</button>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +223,7 @@
                                         <h6 class="card-title text-truncate">Chaqueta café</h6>
                                         <p class="text-muted small">50% de descuento</p>
                                         <p class="card-text fw-bold">$899.00</p>
-                                        <button class="btn btn-sm btn-boton-pago w-100">Agregar al carrito</button>
+                                        <button class="btn-agregar-carrusel">Agregar al carrito</button>
                                     </div>
                                 </div>
                             </div>
@@ -218,37 +235,37 @@
                                         <h6 class="card-title text-truncate">Jean azul</h6>
                                         <p class="text-success small">Disponible ahora</p>
                                         <p class="card-text fw-bold">$350.50</p>
-                                        <button class="btn btn-sm btn-boton-pago w-100">Agregar al carrito</button>
+                                        <button class="btn-agregar-carrusel">Agregar al carrito</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Segundo slide -->
+                    <!-- Tercer slide -->
                     <div class="carousel-item">
                         <div class="row row-cols-2 row-cols-md-4 g-4 justify-content-center">
                             
                             <div class="col">
                                 <div class="card h-100 text-center p-2">
-                                    <img src="../../img/CarritoCompras/Chaqueta-cafe.jpg" class="card-img-top mx-auto mt-2" alt="Producto Sugerido 3" style="height: 150px; width: auto; object-fit: contain;">
+                                    <img src="../../img/CarritoCompras/Sudadera-negra.jpg" class="card-img-top mx-auto mt-2" alt="Producto Sugerido 3" style="height: 150px; width: auto; object-fit: contain;">
                                     <div class="card-body">
-                                        <h6 class="card-title text-truncate">Chaqueta café</h6>
+                                        <h6 class="card-title text-truncate">Sudadera Negra</h6>
                                         <p class="text-muted small">50% de descuento</p>
-                                        <p class="card-text fw-bold">$899.00</p>
-                                        <button class="btn btn-sm btn-boton-pago w-100">Agregar al carrito</button>
+                                        <p class="card-text fw-bold">$50.000</p>
+                                        <button class="btn-agregar-carrusel">Agregar al carrito</button>
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="col">
                                 <div class="card h-100 text-center p-2">
-                                    <img src="../../img/CarritoCompras/Jean-azul.jpg" class="card-img-top mx-auto mt-2" alt="Producto Sugerido 4" style="height: 150px; width: auto; object-fit: contain;">
+                                    <img src="../../img/CarritoCompras/Chaqueta-azul.jpg" class="card-img-top mx-auto mt-2" alt="Producto Sugerido 4" style="height: 150px; width: auto; object-fit: contain;">
                                     <div class="card-body">
-                                        <h6 class="card-title text-truncate">Jean azul</h6>
+                                        <h6 class="card-title text-truncate">Chaqueta azul</h6>
                                         <p class="text-success small">Disponible ahora</p>
-                                        <p class="card-text fw-bold">$350.50</p>
-                                        <button class="btn btn-sm btn-boton-pago w-100">Agregar al carrito</button>
+                                        <p class="card-text fw-bold">$150.000</p>
+                                        <button class="btn-agregar-carrusel">Agregar al carrito</button>
                                     </div>
                                 </div>
                             </div>
@@ -319,10 +336,11 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="../../js/CarritoCompras/Carrito.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-            crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+             integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+             crossorigin="anonymous"></script>
+    
+    <script src="../../js/CarritoCompras/Carrito.js"></script> 
 
 </body>
 </html>

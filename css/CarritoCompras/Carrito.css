@@ -171,16 +171,21 @@
 
 
 
-
-
-
 .btn-boton-pago {
   background-color: rgb(221, 214, 120);   
   color: rgb(0, 0, 0);             
   border: none;              
 }
 
-.btn-boton-pago:hover {
+
+
+.btn-agregar-carrusel {
+  background-color: rgb(221, 214, 120);   
+  color: rgb(0, 0, 0);             
+  border: none;              
+}
+
+.btn-agregar-carrusel:hover {
   background-color: #000000;    
   color: #ffffff;            
 }
