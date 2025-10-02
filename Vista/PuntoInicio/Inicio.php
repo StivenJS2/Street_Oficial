@@ -55,7 +55,7 @@
                   <i class="bi bi-person-circle"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#">Sign In</a></li>
+                  <li><a class="dropdown-item" href="/Vista/Login/Login.php">Sign In</a></li>
                   <li><a class="dropdown-item" href="#">Sign Up</a></li>
                 </ul>
               </div>
