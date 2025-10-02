@@ -5,7 +5,16 @@ class PedidoController {
     private $pedidoService;
    
     public function __construct() {
-        $this->pedidoService = new PedidoService();
+        session_start(); // Asegurarse de que la sesión está iniciada
+
+        if (!isset($_SESSION['token'])) {
+            // Si no hay token, el usuario no está autenticado.
+            header('HTTP/1.1 403 Forbidden');
+            die("Acceso denegado. Se requiere autenticación.");
+        }
+
+        // Crear el servicio pasándole el token de la sesión
+        $this->pedidoService = new PedidoService($_SESSION['token']);
     }
    
     public function manejarPeticion() {

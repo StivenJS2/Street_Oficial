@@ -5,7 +5,13 @@ class ValoracionController {
     private $valoracionService;
 
     public function __construct() {
-        $this->valoracionService = new ValoracionService();
+        session_start();
+
+        if (!isset($_SESSION['token'])) {
+            die("Acceso denegado. Se requiere autenticación.");
+        }
+
+        $this->valoracionService = new ValoracionService($_SESSION['token']);
     }
 
     public function manejarPeticion() {

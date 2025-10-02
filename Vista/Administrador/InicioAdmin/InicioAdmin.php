@@ -25,7 +25,7 @@
       <li><a href="index.php?opcion=valoracion"><i class="fas fa-star"></i><span> Valoración</span></a></li>
     </ul>
     <div class="footer">
-      <button class="logout"><i class="fas fa-sign-out-alt"></i><span> Cerrar sesión</span></button>
+      <button href="index.php?opcion=login" class="logout"><i class="fas fa-sign-out-alt"></i><span> Cerrar sesión</span></button>
       <label class="toggle" for="darkmode">
         <i class="fas fa-moon"></i><span> Modo Oscuro</span>
         <input type="checkbox" id="darkmode" />

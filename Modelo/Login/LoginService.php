@@ -2,48 +2,38 @@
 // Modelo/Login/LoginService.php
 
 class LoginService {
-    private $conn;
+    private $apiUrl;
 
-    public function __construct($conn) {
-        $this->conn = $conn;
+    public function __construct() {
+        $this->apiUrl = "http://localhost:8080/auth/login";
     }
 
     public function autenticar($correo, $contrasena) {
-        $cliente = $this->buscarCliente($correo, $contrasena);
-        if ($cliente) {
-            return [
-                'tipo' => 'cliente',
-                'datos' => $cliente
-            ];
-        }
+        $datos = [
+            'correo_electronico' => $correo,
+            'contrasena' => $contrasena
+        ];
 
-        $vendedor = $this->buscarVendedor($correo, $contrasena);
-        if ($vendedor) {
+        $curl = curl_init($this->apiUrl);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($datos));
+
+        $respuesta = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        if ($httpCode === 200) {
+            $resultado = json_decode($respuesta, true);
             return [
-                'tipo' => 'administrador',
-                'datos' => $vendedor
+                'tipo' => $resultado['tipo'],
+                'token' => $resultado['token'],
+                'datos' => $resultado['usuario']
             ];
         }
 
         return null;
-    }
-
-    private function buscarCliente($correo, $contrasena) {
-        $query = "SELECT * FROM cliente WHERE correo_electronico = ? AND contrasena = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$correo, $contrasena]);
-        
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $resultado ? $resultado : null;
-    }
-
-    private function buscarVendedor($correo, $contrasena) {
-        $query = "SELECT * FROM vendedor WHERE correo_electronico = ? AND contrasena = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$correo, $contrasena]);
-        
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $resultado ? $resultado : null;
     }
 }
 ?>

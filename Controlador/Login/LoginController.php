@@ -5,12 +5,9 @@ require_once __DIR__ . '/../../Modelo/Login/LoginService.php';
 
 class LoginController {
     private $loginService;
-    private $conn;
 
     public function __construct() {
-        require_once __DIR__ . '/../../1.Conexion/conexion.php';
-        $this->conn = Conectar::conexion();
-        $this->loginService = new LoginService($this->conn);
+        $this->loginService = new LoginService();
     }
 
     public function manejarPeticion() {
@@ -46,17 +43,17 @@ class LoginController {
                 exit();
             }
 
-            $usuario = $this->loginService->autenticar($correo, $contrasena);
+            $resultado = $this->loginService->autenticar($correo, $contrasena);
 
-            if ($usuario) {
+            if ($resultado) {
                 session_start();
-                $_SESSION['usuario_id'] = $usuario['datos']['id_' . ($usuario['tipo'] === 'cliente' ? 'cliente' : 'vendedor')];
-                $_SESSION['usuario_nombre'] = $usuario['datos']['nombre'];
-                $_SESSION['usuario_tipo'] = $usuario['tipo'];
-                $_SESSION['usuario_correo'] = $usuario['datos']['correo_electronico'];
+                $_SESSION['token'] = $resultado['token'];
+                $_SESSION['usuario_id'] = $resultado['datos']['id_' . ($resultado['tipo'] === 'cliente' ? 'cliente' : 'vendedor')];
+                $_SESSION['usuario_nombre'] = $resultado['datos']['nombre'];
+                $_SESSION['usuario_tipo'] = $resultado['tipo'];
+                $_SESSION['usuario_correo'] = $resultado['datos']['correo_electronico'];
 
-                // Redireccionar según tipo de usuario
-                if ($usuario['tipo'] === 'administrador') {
+                if ($resultado['tipo'] === 'administrador') {
                     header('Location: Vista/Administrador/index.php');
                 } else {
                     header('Location: index.php');

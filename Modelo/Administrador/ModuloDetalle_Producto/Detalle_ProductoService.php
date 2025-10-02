@@ -1,12 +1,45 @@
 <?php
 class DetalleProductoService {
     private $urlDetalleProducto = "http://localhost:8080/detalle_producto";
+    private $apiToken;
+
+    public function __construct($token) {
+        $this->apiToken = $token;
+    }
+
+    private function getCurlHeaders($contentLength = 0) {
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $this->apiToken
+        ];
+        if ($contentLength > 0) {
+            $headers[] = 'Content-Length: ' . $contentLength;
+        }
+        return $headers;
+    }
 
     public function obtenerDetalles() {
-        $respuesta = file_get_contents($this->urlDetalleProducto);
-        if ($respuesta === FALSE) return [];
+        $proceso = curl_init($this->urlDetalleProducto);
+        curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders());
 
-        return json_decode($respuesta, true);
+        $respuesta = curl_exec($proceso);
+        $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
+
+        if (curl_errno($proceso)) {
+            curl_close($proceso);
+            return [];
+        }
+
+        curl_close($proceso);
+
+        if ($http_code == 200) {
+            return json_decode($respuesta, true);
+        } else {
+            // En un entorno de producción, sería bueno registrar el error.
+            // error_log("Error al obtener detalles: HTTP $http_code");
+            return [];
+        }
     }
 
     public function agregarDetalle($talla, $color, $imagen, $id_producto, $id_categoria, $precio) {
@@ -25,10 +58,7 @@ class DetalleProductoService {
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($proceso, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Content-Length: " . strlen($data_json)
-        ]);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders(strlen($data_json)));
 
         $respuesta = curl_exec($proceso);
         $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
@@ -63,10 +93,7 @@ class DetalleProductoService {
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($proceso, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Content-Length: " . strlen($data_json)
-        ]);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders(strlen($data_json)));
 
         $respuesta = curl_exec($proceso);
         $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
@@ -91,6 +118,7 @@ class DetalleProductoService {
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders());
 
         $respuesta = curl_exec($proceso);
         $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);

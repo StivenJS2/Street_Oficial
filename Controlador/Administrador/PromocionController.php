@@ -5,7 +5,13 @@ class PromocionController {
     private $promocionService;
 
     public function __construct() {
-        $this->promocionService = new PromocionService();
+        session_start();
+
+        if (!isset($_SESSION['token'])) {
+            die("Acceso denegado. Se requiere autenticación.");
+        }
+
+        $this->promocionService = new PromocionService($_SESSION['token']);
     }
 
     public function manejarPeticion() {

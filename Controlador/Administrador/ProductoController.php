@@ -6,7 +6,13 @@ class ProductoController {
     private $productoService;
    
     public function __construct() {
-        $this->productoService = new ProductoService();
+        session_start();
+
+        if (!isset($_SESSION['token'])) {
+            die("Acceso denegado. Se requiere autenticación.");
+        }
+
+        $this->productoService = new ProductoService($_SESSION['token']);
     }
    
     public function manejarPeticion() {

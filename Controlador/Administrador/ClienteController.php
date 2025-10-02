@@ -5,16 +5,20 @@ class ClienteController {
     private $clienteService;
 
     public function __construct() {
-        $this->clienteService = new ClienteService();
+        session_start();
+
+        if (!isset($_SESSION['token'])) {
+            die("Acceso denegado. Se requiere autenticación.");
+        }
+
+        $this->clienteService = new ClienteService($_SESSION['token']);
     }
 
-    // Retornamos un array con 'clientes' y 'mensaje'
     public function manejarPeticion() {
         $mensaje = "";
         $clientes = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // tus formularios deben enviar _action (ej. <input name="_action" value="agregar">)
             $accion = $_POST["_action"] ?? "";
 
             switch ($accion) {

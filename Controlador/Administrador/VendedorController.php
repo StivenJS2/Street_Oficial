@@ -5,7 +5,13 @@ class VendedorController {
     private $vendedorService;
    
     public function __construct() {
-        $this->vendedorService = new VendedorService();
+        session_start();
+
+        if (!isset($_SESSION['token'])) {
+            die("Acceso denegado. Se requiere autenticación.");
+        }
+
+        $this->vendedorService = new VendedorService($_SESSION['token']);
     }
    
     public function manejarPeticion() {

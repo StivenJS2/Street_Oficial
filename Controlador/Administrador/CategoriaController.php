@@ -4,9 +4,15 @@ require_once __DIR__ . "/../../Modelo/Administrador/ModuloCategoria/CategoriaSer
 
 class CategoriaController {
     private $categoriaService;
-   
+
     public function __construct() {
-        $this->categoriaService = new CategoriaService();
+        session_start();
+
+        if (!isset($_SESSION['token'])) {
+            die("Acceso denegado. Se requiere autenticación.");
+        }
+
+        $this->categoriaService = new CategoriaService($_SESSION['token']);
     }
    
     public function manejarPeticion() {

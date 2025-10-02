@@ -1,22 +1,37 @@
 <?php
 class PedidoService {
     private $urlPedido = "http://localhost:8080/pedido";
+    private $apiToken;
+
+    public function __construct($token) {
+        $this->apiToken = $token;
+    }
+
+    private function getCurlHeaders($contentLength = 0) {
+        $headers = [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $this->apiToken
+        ];
+        if ($contentLength > 0) {
+            $headers[] = 'Content-Length: ' . $contentLength;
+        }
+        return $headers;
+    }
 
     public function obtenerPedidos() {
-        $respuesta = file_get_contents($this->urlPedido);
-        if ($respuesta === false) {
-            return [
-                "success" => false,
-                "error" => "Error al consumir el servicio de pedidos en $this->urlPedido"
-            ];
+        $proceso = curl_init($this->urlPedido);
+        curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders());
+
+        $respuesta = curl_exec($proceso);
+        $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
+        curl_close($proceso);
+
+        if ($http_code === 200) {
+            return ["success" => true, "data" => json_decode($respuesta, true)];
+        } else {
+            return ["success" => false, "error" => "Error HTTP $http_code"];
         }
-
-        $pedidos = json_decode($respuesta, true);
-
-        return [
-            "success" => true,
-            "data" => $pedidos
-        ];
     }
 
     public function crearPedido($id_cliente, $fecha_pedido, $total, $estado) {
@@ -26,23 +41,16 @@ class PedidoService {
             "total"         => $total,
             "estado"        => $estado
         ];
+        $data_json = json_encode($datos);
 
         $proceso = curl_init($this->urlPedido);
         curl_setopt($proceso, CURLOPT_POST, true);
-        curl_setopt($proceso, CURLOPT_POSTFIELDS, json_encode($datos)); 
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($proceso, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Content-Length: " . strlen(json_encode($datos))
-        ]);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders(strlen($data_json)));
 
         $respuesta = curl_exec($proceso);
         $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
-
-        if (curl_errno($proceso)) {
-            return ["success" => false, "error" => curl_error($proceso)];
-        }
-
         curl_close($proceso);
 
         if ($http_code === 200 || $http_code === 201) {
@@ -59,24 +67,17 @@ class PedidoService {
             "total"         => $total,
             "estado"        => $estado
         ];
-
+        $data_json = json_encode($datos);
         $url = $this->urlPedido . "/" . $id_pedido;
+
         $proceso = curl_init($url);
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($proceso, CURLOPT_POSTFIELDS, json_encode($datos)); 
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($proceso, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Content-Length: " . strlen(json_encode($datos))
-        ]);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders(strlen($data_json)));
 
         $respuesta = curl_exec($proceso);
         $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
-
-        if (curl_errno($proceso)) {
-            return ["success" => false, "error" => curl_error($proceso)];
-        }
-
         curl_close($proceso);
 
         if ($http_code === 200) {
@@ -92,14 +93,10 @@ class PedidoService {
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders());
 
         $respuesta = curl_exec($proceso);
         $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
-
-        if (curl_errno($proceso)) {
-            return ["success" => false, "error" => curl_error($proceso)];
-        }
-
         curl_close($proceso);
 
         if ($http_code === 200 || $http_code === 204) {

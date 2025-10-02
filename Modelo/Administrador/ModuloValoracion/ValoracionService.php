@@ -1,17 +1,33 @@
 <?php
 class ValoracionService {
     private $urlValoracion = "http://localhost:8080/valoracion";
+    private $apiToken;
 
-    
+    public function __construct($token) {
+        $this->apiToken = $token;
+    }
+
+    private function getCurlHeaders() {
+        return [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $this->apiToken
+        ];
+    }
+
     public function obtenerValoraciones() {
-        $respuesta = file_get_contents($this->urlValoracion);
-        if ($respuesta === FALSE) {
-            return ["success" => false, "error" => "Error al consumir el servicio de valoraciones en $this->urlValoracion"];
+        $proceso = curl_init($this->urlValoracion);
+        curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders());
+
+        $respuesta = curl_exec($proceso);
+        $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
+        curl_close($proceso);
+
+        if ($http_code === 200) {
+            return ["success" => true, "data" => json_decode($respuesta, true)];
+        } else {
+            return ["success" => false, "error" => "HTTP $http_code"];
         }
-
-        $valoraciones = json_decode($respuesta, true);
-
-        return ["success" => true, "data" => $valoraciones];
     }
 
     public function eliminarValoracion($id_valoracion) {
@@ -20,14 +36,10 @@ class ValoracionService {
 
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, $this->getCurlHeaders());
 
         $respuesta = curl_exec($proceso);
         $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
-
-        if (curl_errno($proceso)) {
-            return ["success" => false, "error" => curl_error($proceso)];
-        }
-
         curl_close($proceso);
 
         if ($http_code === 200 || $http_code === 204) {
