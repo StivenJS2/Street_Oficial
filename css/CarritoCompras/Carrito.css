@@ -55,6 +55,25 @@
 
 
 
+.btn-outline-danger,
+.btn-outline-secondary {
+  border-radius: 20px;       /* redondeados */
+  font-size: 0.85rem;        /* más pequeños */
+  padding: 4px 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+
 /* Íconos */
 .social-icon-circle {
   display: flex;
@@ -201,9 +220,11 @@
 /* footer + difuminado final */
 
 .footer-section {
-  background: linear-gradient(to top, #000000 85%, #333 95%, #ffffff 100%);
+  background: linear-gradient(to top, #000000 100%, #333 100%, #ffffff 100%);
   color: white;
 }
+
+
 .footer-section {
   font-size: 0.9rem;
 }

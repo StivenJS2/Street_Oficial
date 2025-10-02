@@ -27,3 +27,6 @@ window.addEventListener("click", (e) => {
     cerrarModal();
   }
 });
+
+
+
