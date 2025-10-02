@@ -32,8 +32,9 @@ class ValoracionController {
 
         $resultado = $this->valoracionService->obtenerValoraciones();
         $valoraciones = $resultado["success"] ? $resultado["data"] : [];
+         return ['valoraciones' => $valoraciones, 'mensaje' => $mensaje];
 
-        require __DIR__ . "/../../Vista/Administrador/Valoracion.php";
+      
     }
 }
 ?>

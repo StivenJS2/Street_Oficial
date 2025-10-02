@@ -70,6 +70,6 @@ class PedidoController {
        $resultado = $this->pedidoService->obtenerPedidos();
         $pedidos = $resultado["success"] ? $resultado["data"] : [];
 
-        require __DIR__ . "/../../Vista/Administrador/pedido.php";
+        return ['pedidos' => $pedidos, 'mensaje' => $mensaje];
     }
 }

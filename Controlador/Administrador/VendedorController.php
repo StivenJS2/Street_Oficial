@@ -80,8 +80,10 @@ class VendedorController {
         }
 
         $vendedores = $this->vendedorService->obtenerVendedores();
-
-       require __DIR__ . '/../../Vista/Administrador/Vendedor.php';
+        return [
+    "vendedores" => $vendedores,
+    "mensaje"    => $mensaje
+];
 
     }
 }

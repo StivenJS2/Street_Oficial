@@ -72,8 +72,10 @@ class PromocionController {
         
         $resultado = $this->promocionService->obtenerPromociones();
         $promociones = $resultado["success"] ? $resultado["data"] : [];
+         return ['promociones' => $promociones, 'mensaje' => $mensaje];
 
-        require __DIR__ . "/../../Vista/Administrador/promocion.php";
+
+       
     }
 }
 ?>
